@@ -20,7 +20,6 @@ function getBookByIsbn(isbn){
     getAllBooks().then(contents => {
       const books = contents.books;
       const bookInfo = books.filter( (book)=> {
-        console.log(book.isbn, "  ", isbn);
         return book.isbn === isbn;
       });
       resolve(bookInfo);
