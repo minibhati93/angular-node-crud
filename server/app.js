@@ -1,9 +1,14 @@
 const express = require('express'),
       fs =  require('fs'),
       path = require('path'),
-      port = 3000;
+      port = 3000,
+      cors = require('cors'),
+      bodyParser = require("body-parser");;
 
 const app = express();
+
+app.use(cors());
+app.use(bodyParser.json());
 
 function getAllBooks(){
   return new Promise((resolve, reject) => {
@@ -27,7 +32,7 @@ function getBookByIsbn(isbn){
   });
 }
 
-app.get('/books', (req, res) => {
+app.get('/', (req, res) => {
   getAllBooks()
     .then(contents => res.json(contents));
 });
@@ -39,4 +44,4 @@ app.get('/books/:isbn', (req, res) => {
   });
 });
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.listen(port, () => console.log(`Server is listening on port ${port}!`))

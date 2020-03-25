@@ -6,11 +6,15 @@ import { HttpClient } from '@angular/common/http';
 })
 export class BooksService {
 
-  private BASE_URL = 'http://localhost:3000/';
+  private BASE_URL = 'http://localhost:3000';
 
   constructor(private http: HttpClient) { }
 
   getAllBooks() {
-    return this.http.get(this.BASE_URL);
+    return this.http.get(this.BASE_URL + '/');
+  }
+
+  getBookByIsbn(isbn: string) {
+    return this.http.get(this.BASE_URL + '/books/' + isbn);
   }
 }

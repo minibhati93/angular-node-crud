@@ -1,0 +1,11 @@
+<p>books routing works!</p>
+
+<table>
+  <tr *ngFor="let book of allBooks.books">
+    <td>{{ book.isbn }}</td>
+    <td>{{ book.title }}</td>
+  </tr>
+</table>
+
+
+<router-outlet></router-outlet>
