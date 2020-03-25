@@ -3,9 +3,20 @@ const express = require('express'),
       path = require('path'),
       port = 3000,
       cors = require('cors'),
-      bodyParser = require("body-parser");;
+      bodyParser = require("body-parser"),
+      mongoose = require('mongoose');
 
 const app = express();
+
+mongoose.connect('mongodb://localhost/libraryDB', {useUnifiedTopology: true,  useNewUrlParser: true });
+const db = mongoose.connection;
+
+db.on('error', function (err) {
+  console.log('connection error', err);
+});
+db.once('open', function () {
+  console.log('connected.');
+});
 
 app.use(cors());
 app.use(bodyParser.json());
