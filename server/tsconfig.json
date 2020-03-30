@@ -67,7 +67,8 @@
     "app.ts",
     "config/*.ts",
     "models/*.ts",
-    "routings/**/*.ts"
+    "routes/**/*.ts",
+    "controllers/**/*.ts"
   ],
   "exclude": [
     "node_modules"

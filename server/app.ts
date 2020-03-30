@@ -1,9 +1,20 @@
-import express from 'express';
+import express, {  Application } from 'express';
+import * as dotenv from 'dotenv';
+import cors from 'cors';
+import { connect } from './connect';
 
-const app = express();
+const app: Application = express();
+
+dotenv.config();
+
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
+app.use(cors());
+app.use(express.json());
+
+connect();
+
+const server = app.listen(PORT, () => {
   return console.log(`Server is listening on ${PORT}`);
 });
 
