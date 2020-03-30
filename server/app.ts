@@ -1,3 +1,13 @@
+import express from 'express';
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  return console.log(`Server is listening on ${PORT}`);
+});
+
+/*
 const express = require('express'),
       fs =  require('fs'),
       path = require('path'),
@@ -25,8 +35,7 @@ function getAllBooks(){
   return new Promise((resolve, reject) => {
     fs.readFile(path.join(__dirname, './stubs/books.json'), 'utf-8' , (err, contents)=> {
       if (err) reject(err); // we'll not consider error handling for now
-      let jsonData = JSON.parse(contents.replace(/\r?\n|\r/g, ''));
-      resolve(jsonData);
+      resolve(contents);
     });
   });
 }
@@ -56,3 +65,5 @@ app.get('/books/:isbn', (req, res) => {
 });
 
 app.listen(port, () => console.log(`Server is listening on port ${port}!`))
+
+****/
