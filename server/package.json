@@ -27,7 +27,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1"
   },
@@ -37,6 +36,7 @@
     "@types/mongodb": "^3.5.4",
     "@types/mongoose": "^5.7.8",
     "@types/node": "^13.9.5",
+    "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "mongoose": "^5.9.6",
     "nodemon": "^2.0.2",
