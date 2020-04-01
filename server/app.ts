@@ -2,8 +2,10 @@ import express, {  Application } from 'express';
 import * as dotenv from 'dotenv';
 import cors from 'cors';
 import { connect } from './connect';
+import { BooksRoutes } from './routes/books/book.route';
 
 const app: Application = express();
+const bookRoutes = new BooksRoutes();
 
 dotenv.config();
 
@@ -11,6 +13,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
+app.use('/api/books', bookRoutes.getRouter());
 
 connect();
 
