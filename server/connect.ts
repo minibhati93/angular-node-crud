@@ -1,7 +1,9 @@
 import mongoose from 'mongoose';
-const db = 'mongodb://localhost:27017/';
+const db = 'mongodb://localhost:27017/libraryDB';
 
 export const connect = () => {
+  mongoose.set('debug', true);
+
   mongoose
     .connect(db, { useNewUrlParser: true , useUnifiedTopology: true })
     .then( () => {
