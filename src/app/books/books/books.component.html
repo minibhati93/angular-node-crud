@@ -1,11 +1,22 @@
-<p>books routing works!</p>
+<div class="container-fluid">
+  <header>
 
-<table>
-  <tr *ngFor="let book of allBooks">
-    <td>{{ book.isbn }}</td>
-    <td>{{ book.title }}</td>
-  </tr>
-</table>
+  </header>
+  <main>
+    <section class="row thumbnail-container p-3 m-3 border" *ngFor="let book of allBooks | paginate: { itemsPerPage: 2, currentPage: p }">
+      <div class="col-3">
+        <img src='{{book.thumbnailUrl}}' />
+      </div>
+      <div class="col-9">
+        <h4>{{book.title}}</h4>
+        <h6>by {{book.authors}}</h6>
+        <p>{{book.shortDescription}}</p>
+      </div>
+    </section>
+  </main>
+  <footer></footer>
+</div>
 
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
 
 <router-outlet></router-outlet>
