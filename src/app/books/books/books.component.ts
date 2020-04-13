@@ -10,6 +10,7 @@ import { BookInterface } from '../../shared/models/book.model';
 export class BooksComponent implements OnInit {
 
   allBooks: any = [];
+  p = 1;
 
   constructor(private booksService: BooksService) { }
 
