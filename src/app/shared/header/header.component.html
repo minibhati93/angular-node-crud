@@ -7,9 +7,13 @@
   <div class="collapse navbar-collapse" id="navbarCollapse">
     <ul class="navbar-nav mr-auto">
     </ul>
+    <div class="search-group mr-3 d-flex">
+      <input type="text" class="form-control" placeholder="Search here..."/>
+      <button type="button" class="btn listViewBtnGroup"><i class="fas fa-search"></i></button>
+    </div>
     <div class="btn-group">
-      <button type="button" (click)="toggleViewType('thumbnail')" class="btn listViewBtnGroup border"><i class="fas fa-th"></i></button>
-      <button type="button" (click)="toggleViewType('list')" class="btn listViewBtnGroup border"><i class="fas fa-list-ul"></i></button>
+      <button type="button" (click)="toggleViewType('thumbnail')" [ngClass]="{ 'activeBtn' : viewType == 'thumbnail' }" class="btn listViewBtnGroup border"><i class="fas fa-th"></i></button>
+      <button type="button" (click)="toggleViewType('list')" [ngClass]="{ 'activeBtn' : viewType == 'list' }" class="btn listViewBtnGroup border"><i class="fas fa-list-ul"></i></button>
     </div>
   </div>
 </nav>

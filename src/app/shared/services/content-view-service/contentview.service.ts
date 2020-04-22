@@ -17,7 +17,7 @@ export class ContentviewService {
     return this.viewTypeSubject$.asObservable();
   }
 
-  updateContentView(view){
+  updateContentView(view) {
     this.viewType = view;
     this.viewTypeSubject$.next(view);
   }

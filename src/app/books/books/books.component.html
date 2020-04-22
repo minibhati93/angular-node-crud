@@ -5,7 +5,7 @@
   <main>
     <!-- Thumbnail View starts -->
     <div class="thumbnail-view-content" *ngIf="viewType === 'thumbnail'">
-      <section class="row thumbnail-container p-3 m-3 border rounded-lg" *ngFor="let book of allBooks | paginate: { itemsPerPage: 2, currentPage: p }">
+      <section class="row thumbnail-container p-3 m-3 border rounded-lg" *ngFor="let book of allBooks | paginate: { itemsPerPage: 3, currentPage: p }">
         <div class="col-sm-3 col-md-3 col-lg-2">
           <img src="{{book.thumbnailUrl}}" class="img-container"/>
         </div>
@@ -21,14 +21,14 @@
     </div>
     <!-- List View starts -->
     <div class="list-view-content" *ngIf="viewType === 'list'">
-      <table>
+      <table class="table table-border mt-3">
         <thead>
           <tr>
-            <td>Title</td>
-            <td>Authors</td>
-            <td>Categories</td>
-            <td>PageCount</td>
-            <td>Status</td>
+            <th>Title</th>
+            <th>Authors</th>
+            <th>Categories</th>
+            <th>PageCount</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody>
@@ -45,7 +45,7 @@
     </div>
   </main>
   <footer>
-    <pagination-controls *ngIf="viewType === 'thumbnail'" (pageChange)="p = $event"></pagination-controls>
+    <pagination-controls class="text-center" *ngIf="viewType === 'thumbnail'" (pageChange)="p = $event"></pagination-controls>
   </footer>
 </div>
 

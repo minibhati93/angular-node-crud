@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit {
 
   toggleViewType(view) {
     this.contentView.updateContentView(view);
+    this.viewType = view;
   }
 
 
