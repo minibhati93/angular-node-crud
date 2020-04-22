@@ -1,0 +1,15 @@
+<nav class="navbar navbar-expand-md navbar-dark navbar-fixed-top">
+  <a class="navbar-brand">Tech Library</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
+    </ul>
+    <div class="btn-group">
+      <button type="button" (click)="toggleViewType('thumbnail')" class="btn listViewBtnGroup border"><i class="fas fa-th"></i></button>
+      <button type="button" (click)="toggleViewType('list')" class="btn listViewBtnGroup border"><i class="fas fa-list-ul"></i></button>
+    </div>
+  </div>
+</nav>

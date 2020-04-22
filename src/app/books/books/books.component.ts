@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BooksService } from '../../shared/services/books-service/books.service';
-import { BookInterface } from '../../shared/models/book.model';
+import { ContentviewService } from '../../shared/services/content-view-service/contentview.service';
 
 @Component({
   selector: 'app-books',
@@ -11,13 +11,16 @@ export class BooksComponent implements OnInit {
 
   allBooks: any = [];
   p = 1;
+  viewType = 'thumbnail';
 
-  constructor(private booksService: BooksService) { }
+  constructor(private booksService: BooksService,
+              private contentView: ContentviewService) { }
 
   ngOnInit() {
     this.booksService.getAllBooks().subscribe(data => {
       this.allBooks = data;
     });
+    this.contentView.contentViewType$.subscribe(viewType$ => this.viewType = viewType$);
   }
 
 }

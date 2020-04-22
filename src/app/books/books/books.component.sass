@@ -1,5 +1,36 @@
 @import '~src/sass/variables'
+@import '~src/sass/base'
 
 .thumbnail-container
-  background: $thumbnailBackground
+  -webkit-box-shadow: 0px 4px 5px 3px rgba(207,201,207,1)
+  -moz-box-shadow: 0px 4px 5px 3px rgba(207,201,207,1)
+  box-shadow: 0px 4px 5px 3px rgba(207,201,207,1)
 
+.img-container
+  height: 180px
+  width: 120px
+
+.sidebar-container
+  background: white
+
+.sidebar-container ul
+  list-style: none
+
+table
+  display: flex
+  flex-flow: column
+  width: 100%
+
+thead
+  flex: 0 0 auto
+
+tbody
+  flex: 1 1 auto
+  display: block
+  overflow-y: auto
+  overflow-x: hidden
+
+tr
+  width: 100%
+  display: table
+  table-layout: fixed

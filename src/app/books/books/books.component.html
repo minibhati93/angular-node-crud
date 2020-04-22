@@ -1,22 +1,54 @@
-<div class="container-fluid">
+<div class="container-fluid p-0">
   <header>
-
+    <app-header></app-header>
   </header>
   <main>
-    <section class="row thumbnail-container p-3 m-3 border" *ngFor="let book of allBooks | paginate: { itemsPerPage: 2, currentPage: p }">
-      <div class="col-3">
-        <img src='{{book.thumbnailUrl}}' />
-      </div>
-      <div class="col-9">
-        <h4>{{book.title}}</h4>
-        <h6>by {{book.authors}}</h6>
-        <p>{{book.shortDescription}}</p>
-      </div>
-    </section>
+    <!-- Thumbnail View starts -->
+    <div class="thumbnail-view-content" *ngIf="viewType === 'thumbnail'">
+      <section class="row thumbnail-container p-3 m-3 border rounded-lg" *ngFor="let book of allBooks | paginate: { itemsPerPage: 2, currentPage: p }">
+        <div class="col-sm-3 col-md-3 col-lg-2">
+          <img src="{{book.thumbnailUrl}}" class="img-container"/>
+        </div>
+        <div class="col-9">
+          <h4>{{book.title}}</h4>
+          <h6>by {{book.authors}}</h6>
+          <p *ngIf="book.shortDescription" title="{{book.shortDescription}}">
+            {{ (book.shortDescription | slice:0:100) + '...' }}
+          </p>
+          <p>{{ book.categories}} </p>
+        </div>
+      </section>
+    </div>
+    <!-- List View starts -->
+    <div class="list-view-content" *ngIf="viewType === 'list'">
+      <table>
+        <thead>
+          <tr>
+            <td>Title</td>
+            <td>Authors</td>
+            <td>Categories</td>
+            <td>PageCount</td>
+            <td>Status</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let book of allBooks">
+            <td>{{ book.title }}</td>
+            <td>{{ book.authors }}</td>
+            <td>{{ book.categories }}</td>
+            <td>{{ book.pageCount }}</td>
+            <td>{{ book.status }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
   </main>
-  <footer></footer>
+  <footer>
+    <pagination-controls *ngIf="viewType === 'thumbnail'" (pageChange)="p = $event"></pagination-controls>
+  </footer>
 </div>
 
-<pagination-controls (pageChange)="p = $event"></pagination-controls>
+
 
 <router-outlet></router-outlet>
