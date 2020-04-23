@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { BooksService } from '../../shared/services/books-service/books.service';
 import { ContentviewService } from '../../shared/services/content-view-service/contentview.service';
+import { BookInterface } from '../../shared/models/book.model';
 
 @Component({
   selector: 'app-books',
@@ -22,6 +23,9 @@ export class BooksComponent implements OnInit {
       this.allBooks = data;
     });
     this.contentView.contentViewType$.subscribe(viewType$ => this.viewType = viewType$);
+  }
+
+  editBook(book: BookInterface) {
   }
 
 }
