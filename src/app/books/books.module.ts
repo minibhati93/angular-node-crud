@@ -4,15 +4,20 @@ import { BooksRoutingModule } from './books-routing.module';
 
 import { BooksComponent } from './books/books.component';
 import { BookDetailComponent } from './book-detail/book-detail.component';
+import { HeaderComponent} from '../shared/header/header.component';
+
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
     BooksComponent,
-    BookDetailComponent
+    BookDetailComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,
-    BooksRoutingModule
+    BooksRoutingModule,
+    NgxPaginationModule
   ]
 })
 export class BooksModule { }
