@@ -1,14 +1,13 @@
 <section class="box-shadow p-3 m-3 border rounded">
-  <form [formGroup]="bookDetailsForm" (ngSubmit)="onSubmit(bookDetailsForm)">
-    <input formControlName="title" placeholder="name">
-    <input formControlName="isbn" placeholder="isbn">
-    <input formControlName="shortDesc" placeholder="shortDesc">
-    <input formControlName="longDesc" placeholder="longDesc">
-    <input formControlName="status" placeholder="status">
-    <input formControlName="pageCount" placeholder="pageCount">
+  <form [formGroup]="bookDetailsForm">
+    <input type="text" formControlName="title" placeholder="name">
+    <input type="text" formControlName="isbn" placeholder="isbn">
+    <input type="text" formControlName="shortDesc" placeholder="shortDesc">
+    <input type="text" formControlName="longDesc" placeholder="longDesc">
+    <input type="text" formControlName="status" placeholder="status">
+    <input type="text" formControlName="pageCount" placeholder="pageCount">
     <input formControlName="authors" placeholder="authors">
     <input formControlName="categories" placeholder="categories">
-
-    <button type="submit">Send</button>
+    <button type="submit" (click)='updateFormValues(bookDetailsForm.value)'>Update</button>
   </form>
 </section>

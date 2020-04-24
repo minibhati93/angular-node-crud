@@ -13,7 +13,7 @@ export class BookDetailComponent implements OnInit {
 
   bookId: string;
   bookDetailsForm: FormGroup;
-  bookData: BookInterface;
+  bookData: any;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -31,15 +31,36 @@ export class BookDetailComponent implements OnInit {
       pageCount: '',
       publishedDate: '',
       thumbnailUrl: '',
-      status: ''
+      status: '',
+      authors: '',
+      categories: ''
     });
+
+    this.booksService.getBookById(this.bookId).subscribe( data =>  {
+      this.bookData = data ;
+      this.bookDetailsForm.patchValue({
+        title: this.bookData.title,
+        isbn: this.bookData.isbn,
+        shortDesc: this.bookData.shortDescription || '',
+        longDesc: this.bookData.longDescription || '',
+        status: this.bookData.status || '',
+        pageCount: this.bookData.pageCount || '',
+        authors: this.bookData.authors || '',
+        categories: this.bookData.categories || ''
+      });
+    });
+
   }
 
-  onSubmit(form: FormGroup) {
-    console.log('Valid?', form.valid); // true or false
-    console.log('Name', form.value.name);
-    console.log('Email', form.value.email);
-    console.log('Message', form.value.message);
+  updateFormValues(bookDetailsFormData) {
+    if (bookDetailsFormData) {
+      this.bookData = this.bookDetailsForm;
+    }
+
+    console.log(bookDetailsFormData);
+    this.booksService.updateBookData(this.bookId, bookDetailsFormData).subscribe(data => {
+      console.log(' data ', data);
+    });
   }
 
 }
