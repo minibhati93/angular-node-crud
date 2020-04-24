@@ -16,6 +16,10 @@ export class BooksController {
       return book;
     });
   }
+
+  public deleteBookById = async (id: any) => {
+    return await Book.findByIdAndRemove(id).exec();
+  }
 }
 
 export const booksController = new BooksController();

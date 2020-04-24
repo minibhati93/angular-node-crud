@@ -22,7 +22,11 @@ export class BooksService {
     return this.http.get(this.BASE_URL + '/api/books/' + id);
   }
 
-  updateBookData(id, params){
+  updateBookData(id, params) {
     return this.http.put(this.BASE_URL + '/api/books/' + id, params);
+  }
+
+  deleteBook(id) {
+    return this.http.delete(this.BASE_URL + '/api/books/' + id);
   }
 }

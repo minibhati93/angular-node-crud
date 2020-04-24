@@ -15,15 +15,18 @@ export class BooksRoutes {
 
     this.router.get('/:id', (req: Request, res: Response) => {
       const id = req.params.id;
-      console.log('The id: ' + id);
       booksController.getBookById(id).then(book => res.json(book));
     });
 
     this.router.put('/:id', (req: Request, res: Response) => {
       const id = req.params.id;
       const body = req.body;
-      console.log('from route' ,body);
       booksController.updateBookById(id, body).then(book => res.json(book) );
+    });
+
+    this.router.delete('/:id', (req: Request, res: Response) => {
+      const id = req.params.id;
+      booksController.deleteBookById(id).then(sucess => res.json(sucess) );
     });
 
     return this.router;

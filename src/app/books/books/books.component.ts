@@ -31,4 +31,14 @@ export class BooksComponent implements OnInit {
     this.router.navigate(['/edit', book._id]);
   }
 
+  deleteBook(book: BookInterface) {
+    const id = book._id;
+    this.booksService.deleteBook(book._id).subscribe(() => {
+      const index = this.allBooks.findIndex( item => {
+        return item._id === id;
+      });
+      this.allBooks.splice(index, 1);
+    });
+  }
+
 }
