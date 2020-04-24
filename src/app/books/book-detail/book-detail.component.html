@@ -1,1 +1,14 @@
-<p>book-detail works!</p>
+<section class="box-shadow p-3 m-3 border rounded">
+  <form [formGroup]="bookDetailsForm" (ngSubmit)="onSubmit(bookDetailsForm)">
+    <input formControlName="title" placeholder="name">
+    <input formControlName="isbn" placeholder="isbn">
+    <input formControlName="shortDesc" placeholder="shortDesc">
+    <input formControlName="longDesc" placeholder="longDesc">
+    <input formControlName="status" placeholder="status">
+    <input formControlName="pageCount" placeholder="pageCount">
+    <input formControlName="authors" placeholder="authors">
+    <input formControlName="categories" placeholder="categories">
+
+    <button type="submit">Send</button>
+  </form>
+</section>

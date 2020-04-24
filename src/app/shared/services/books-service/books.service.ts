@@ -17,4 +17,8 @@ export class BooksService {
   getBookByIsbn(isbn: string) {
     return this.http.get(this.BASE_URL + '/books/' + isbn);
   }
+
+  getBookById(id: string) {
+    return this.http.get(this.BASE_URL + '/books/' + id);
+  }
 }
