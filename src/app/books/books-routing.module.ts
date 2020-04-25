@@ -8,7 +8,8 @@ const routes: Routes = [
   { path: '', component: HomeComponent ,
     children: [
       { path: '', component: BooksComponent, pathMatch: 'full' },
-      { path: 'edit/:id', component: BookDetailComponent }
+      { path: 'edit', redirectTo: 'edit/', pathMatch: 'full'},
+      { path: 'edit/:id', component: BookDetailComponent },
     ]
   }
 ];

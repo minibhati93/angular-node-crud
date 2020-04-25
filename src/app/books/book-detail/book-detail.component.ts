@@ -21,7 +21,6 @@ export class BookDetailComponent implements OnInit {
               private booksService: BooksService) { }
 
   ngOnInit() {
-
     this.bookId = this.route.snapshot.paramMap.get('id');
     this.bookDetailsForm = this.fb.group({
       title: '',
@@ -36,6 +35,13 @@ export class BookDetailComponent implements OnInit {
       categories: ''
     });
 
+    if (this.bookId) {
+      this.initializeForm();
+    }
+
+  }
+
+  initializeForm() {
     this.booksService.getBookById(this.bookId).subscribe( data =>  {
       this.bookData = data ;
       this.bookDetailsForm.patchValue({
@@ -43,24 +49,26 @@ export class BookDetailComponent implements OnInit {
         isbn: this.bookData.isbn,
         shortDesc: this.bookData.shortDescription || '',
         longDesc: this.bookData.longDescription || '',
+        thumbnailUrl: this.bookData.thumbnailUrl,
         status: this.bookData.status || '',
         pageCount: this.bookData.pageCount || '',
         authors: this.bookData.authors || '',
         categories: this.bookData.categories || ''
       });
     });
-
   }
 
-  updateFormValues(bookDetailsFormData) {
+  updateFormValues(bookDetailsFormData: any) {
     if (bookDetailsFormData) {
       this.bookData = this.bookDetailsForm;
     }
-
-    console.log(bookDetailsFormData);
     this.booksService.updateBookData(this.bookId, bookDetailsFormData).subscribe(data => {
       console.log(' data ', data);
     });
+  }
+
+  goToHomePage() {
+    this.router.navigate(['/books']);
   }
 
 }

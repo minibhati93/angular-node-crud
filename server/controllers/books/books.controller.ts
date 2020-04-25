@@ -11,10 +11,8 @@ export class BooksController {
     return await Book.findById(id).exec();
   }
 
-  public updateBookById = (id: any, body: any) => {
-    return Book.update({ _id: id }, body).exec().then((book) => {
-      return book;
-    });
+  public updateBookById = async (id: any, body: any) => {
+    return await Book.findByIdAndUpdate(id, { $set: body}).exec();
   }
 
   public deleteBookById = async (id: any) => {
