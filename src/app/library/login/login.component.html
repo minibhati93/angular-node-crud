@@ -1,4 +1,4 @@
-<section class="box-shadow">
+<section class="box-shadow m-5 p-3 rounded-lg">
   <form [formGroup]="loginForm">
     <div class="form-group row m-3">
       <label for="email" class="col-sm-2 col-form-label">Email: </label>
@@ -7,6 +7,9 @@
     <div class="form-group row m-3">
       <label for="email" class="col-sm-2 col-form-label">Password: </label>
       <input type="password" class="form-control col-sm-10" formControlName="password">
+    </div>
+    <div class="ml-3">
+      <button class="btn btn-primary m-3">Login</button>
     </div>
   </form>
 </section>
