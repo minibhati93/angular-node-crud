@@ -13,6 +13,22 @@ export class BooksRoutes {
       })
     });
 
+    this.router.get('/:id', (req: Request, res: Response) => {
+      const id = req.params.id;
+      booksController.getBookById(id).then(book => res.json(book));
+    });
+
+    this.router.put('/:id', (req: Request, res: Response) => {
+      const id = req.params.id;
+      const body = req.body;
+      booksController.updateBookById(id, body).then(book => res.json(book) );
+    });
+
+    this.router.delete('/:id', (req: Request, res: Response) => {
+      const id = req.params.id;
+      booksController.deleteBookById(id).then(sucess => res.json(sucess) );
+    });
+
     return this.router;
   }
 

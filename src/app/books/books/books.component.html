@@ -1,58 +1,47 @@
-<div class="container-fluid p-0">
-  <header>
-    <app-header></app-header>
-  </header>
-  <main>
-    <!-- Thumbnail View starts -->
-    <div class="thumbnail-view-content" *ngIf="viewType === 'thumbnail'">
-      <section class="row thumbnail-container p-3 m-3 border rounded-lg" *ngFor="let book of allBooks | paginate: { itemsPerPage: 3, currentPage: p }">
-        <div class="col-sm-3 col-md-3 col-lg-2">
-          <img src="{{book.thumbnailUrl}}" class="img-container"/>
-        </div>
-        <div class="col-sm-8 col-md-8 col-lg-9">
-          <h4>{{book.title}}</h4>
-          <h6>by {{book.authors}}</h6>
-          <p *ngIf="book.shortDescription" title="{{book.shortDescription}}">
-            {{ (book.shortDescription | slice:0:100) + '...' }}
-          </p>
-          <p>{{ book.categories}} </p>
-        </div>
-        <div class="col-sm-1 col-md-1 col-lg-1">
-          <button class="btn" (click)='editBook(book)'><i class="fa fa-edit"></i></button>
-          <button class="btn"><i class="fa fa-times-circle"></i></button>
-        </div>
-      </section>
+<!-- Thumbnail View starts -->
+<div class="thumbnail-view-content" *ngIf="viewType === 'thumbnail'">
+  <section class="row box-shadow p-3 m-3 border rounded-lg" *ngFor="let book of allBooks | paginate: { itemsPerPage: 3, currentPage: p }">
+    <div class="col-sm-3 col-md-3 col-lg-2">
+      <img src="{{book.thumbnailUrl}}" class="img-container"/>
     </div>
-    <!-- List View starts -->
-    <div class="list-view-content" *ngIf="viewType === 'list'">
-      <table class="table table-border mt-3">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Authors</th>
-            <th>Categories</th>
-            <th>PageCount</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let book of allBooks">
-            <td>{{ book.title }}</td>
-            <td>{{ book.authors }}</td>
-            <td>{{ book.categories }}</td>
-            <td>{{ book.pageCount }}</td>
-            <td>{{ book.status }}</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="col-sm-8 col-md-8 col-lg-9">
+      <h4>{{book.title}}</h4>
+      <h6>by {{book.authors}}</h6>
+      <p *ngIf="book.shortDescription" title="{{book.shortDescription}}">
+        {{ (book.shortDescription | slice:0:100) + '...' }}
+      </p>
+      <p>{{ book.categories}} </p>
+    </div>
+    <div class="col-sm-1 col-md-1 col-lg-1">
+      <button class="btn" (click)='editBook(book)'><i class="fa fa-edit"></i></button>
+      <button class="btn" (click)='deleteBook(book)'><i class="fa fa-times-circle"></i></button>
+    </div>
+  </section>
+</div>
+<!-- List View starts -->
+<div class="list-view-content" *ngIf="viewType === 'list'">
+  <table class="table table-border mt-3">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Authors</th>
+        <th>Categories</th>
+        <th>PageCount</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let book of allBooks">
+        <td>{{ book.title }}</td>
+        <td>{{ book.authors }}</td>
+        <td>{{ book.categories }}</td>
+        <td>{{ book.pageCount }}</td>
+        <td>{{ book.status }}</td>
+      </tr>
+    </tbody>
+  </table>
 
-    </div>
-  </main>
-  <footer>
-    <pagination-controls class="text-center" *ngIf="viewType === 'thumbnail'" (pageChange)="p = $event"></pagination-controls>
-  </footer>
 </div>
 
+<pagination-controls class="text-center" *ngIf="viewType === 'thumbnail'" (pageChange)="p = $event"></pagination-controls>
 
-
-<router-outlet></router-outlet>

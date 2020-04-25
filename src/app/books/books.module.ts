@@ -7,17 +7,23 @@ import { BookDetailComponent } from './book-detail/book-detail.component';
 import { HeaderComponent} from '../shared/header/header.component';
 
 import { NgxPaginationModule } from 'ngx-pagination';
+import { HomeComponent } from './home/home.component';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     BooksComponent,
     BookDetailComponent,
-    HeaderComponent
+    HeaderComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,
     BooksRoutingModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class BooksModule { }

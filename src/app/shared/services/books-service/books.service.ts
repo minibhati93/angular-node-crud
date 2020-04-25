@@ -15,6 +15,18 @@ export class BooksService {
   }
 
   getBookByIsbn(isbn: string) {
-    return this.http.get(this.BASE_URL + '/books/' + isbn);
+    return this.http.get(this.BASE_URL + '/api/books/' + isbn);
+  }
+
+  getBookById(id: string) {
+    return this.http.get(this.BASE_URL + '/api/books/' + id);
+  }
+
+  updateBookData(id, params) {
+    return this.http.put(this.BASE_URL + '/api/books/' + id, params);
+  }
+
+  deleteBook(id) {
+    return this.http.delete(this.BASE_URL + '/api/books/' + id);
   }
 }
