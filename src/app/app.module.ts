@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { BooksModule } from './books/books.module';
+import { LibraryModule } from './library/library.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { BooksModule } from './books/books.module';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    BooksModule
+    BooksModule,
+    LibraryModule
   ],
   providers: [],
   bootstrap: [AppComponent]
