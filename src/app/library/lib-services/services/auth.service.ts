@@ -11,10 +11,19 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   isLoggedIn() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (currentUser) {
+      return currentUser;
+    }
     return false;
   }
 
   login(body) {
     return this.http.post(this.BASE_URL + '/api/library/login', body);
+  }
+
+  logout() {
+    // remove user from local storage to log user out
+    localStorage.removeItem('currentUser');
   }
 }

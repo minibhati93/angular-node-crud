@@ -8,11 +8,9 @@ import { ErrorComponent } from './error/error.component';
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent,
+  { path: '', component: HomeComponent, pathMatch: 'prefix',
     children: [
-      { path: '', component: DashboardComponent ,
-        canActivate: [AuthGuardService],
-      },
+      { path: '', component: DashboardComponent, canActivate: [AuthGuardService] },
       { path: 'login', component: LoginComponent },
       { path: '**', component: ErrorComponent }
     ]

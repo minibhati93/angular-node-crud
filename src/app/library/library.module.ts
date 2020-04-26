@@ -10,10 +10,11 @@ import { LoginComponent } from './login/login.component';
 import { AuthService } from './lib-services/services/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorComponent } from './error/error.component';
+import { AsideComponent } from './aside/aside.component';
 
 
 @NgModule({
-  declarations: [HomeComponent, HeaderComponent, DashboardComponent, LoginComponent, ErrorComponent],
+  declarations: [HomeComponent, HeaderComponent, DashboardComponent, LoginComponent, ErrorComponent, AsideComponent],
   imports: [
     CommonModule,
     LibraryRoutingModule,
