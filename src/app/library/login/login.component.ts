@@ -20,8 +20,7 @@ export class LoginComponent implements OnInit {
   if (this.authService.currentUserValue) {
     this.router.navigateByUrl('/');
   }
-
-              }
+  }
 
   ngOnInit() {
     this.loginForm = this.fb.group({

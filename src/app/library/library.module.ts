@@ -13,10 +13,18 @@ import { ErrorComponent } from './error/error.component';
 import { AsideComponent } from './aside/aside.component';
 import { SearchComponent } from './search/search.component';
 import { ManageBooksComponent } from './manage-books/manage-books.component';
+import { ChartsComponent } from './charts/charts.component';
 
 
 @NgModule({
-  declarations: [HomeComponent, HeaderComponent, DashboardComponent, LoginComponent, ErrorComponent, AsideComponent, SearchComponent, ManageBooksComponent],
+  declarations: [
+    HomeComponent,
+    HeaderComponent,
+    DashboardComponent,
+    LoginComponent,
+    ErrorComponent,
+    AsideComponent,
+    SearchComponent, ManageBooksComponent, ChartsComponent],
   imports: [
     CommonModule,
     LibraryRoutingModule,
