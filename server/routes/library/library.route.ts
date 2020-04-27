@@ -1,4 +1,4 @@
-import { Request, Response, Router } from 'express';
+import { Request, Response, Router, NextFunction } from 'express';
 import { libController } from '../../controllers/library/library.controller';
 
 export class LibraryRoutes {
@@ -6,10 +6,16 @@ export class LibraryRoutes {
 
   getRouter(): Router {
 
-    this.router.post('/login', (req: Request, res: Response, next) => {
-      libController.authenticate(req.body)
-      .then(user => user ?
-        res.json(user) : next({ message: 'Username or password is incorrect' }))
+    this.router.get('/login', (req: Request, res: Response, next: NextFunction) => {
+      const headers = req.headers.authorization || '';
+      const token = headers.split(/\s+/).pop()||'';
+      const auth = Buffer.from(token, 'base64').toString();
+      const parts=auth.split(/:/);                         // split on colon
+      const username=parts[0];
+      const password=parts[1];
+      libController.authenticate(username, password)
+      .then(response => response ?
+        res.status(200).json(response) : next({ message: 'Username or password is incorrect' }))
       .catch(err => next(err));
     });
     return this.router;

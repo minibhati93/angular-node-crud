@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit {
   login(value) {
     this.authService.login(value).subscribe((user: User) => {
       if (user) {
-        localStorage.setItem('currentUser', JSON.stringify(user.username));
         this.router.navigateByUrl('/');
       }
     });

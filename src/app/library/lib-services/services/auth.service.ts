@@ -35,11 +35,15 @@ export class AuthService {
     const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa(username + ':' + password) });
     return this.http.get(this.BASE_URL + '/api/library/login', {headers}).pipe(
       map(
-        (user: User) => {
-          user.authdata = window.btoa(username + ':' + password);
-          localStorage.setItem('currentUser', JSON.stringify(user));
-          this.currentUserSubject.next(user);
-          return user;
+        (response) => {
+          if (response) {
+            const user: any = { username };
+            user.authdata = window.btoa(username + ':' + password);
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            this.currentUserSubject.next(user);
+            return user;
+          }
+          return false;
         }
       )
 
