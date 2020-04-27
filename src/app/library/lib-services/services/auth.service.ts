@@ -23,14 +23,6 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
-  isLoggedIn() {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (currentUser) {
-      return currentUser;
-    }
-    return false;
-  }
-
   login({username, password} ) {
     const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa(username + ':' + password) });
     return this.http.get(this.BASE_URL + '/api/library/login', {headers}).pipe(

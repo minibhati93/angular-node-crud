@@ -11,10 +11,12 @@ import { AuthService } from './lib-services/services/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorComponent } from './error/error.component';
 import { AsideComponent } from './aside/aside.component';
+import { SearchComponent } from './search/search.component';
+import { ManageBooksComponent } from './manage-books/manage-books.component';
 
 
 @NgModule({
-  declarations: [HomeComponent, HeaderComponent, DashboardComponent, LoginComponent, ErrorComponent, AsideComponent],
+  declarations: [HomeComponent, HeaderComponent, DashboardComponent, LoginComponent, ErrorComponent, AsideComponent, SearchComponent, ManageBooksComponent],
   imports: [
     CommonModule,
     LibraryRoutingModule,
