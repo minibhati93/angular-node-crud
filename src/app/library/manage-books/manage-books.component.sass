@@ -6,11 +6,13 @@
   padding: 0
   li
     cursor: pointer
-    overflow: hidden
-    white-space: nowrap
-    text-overflow: ellipsis
+    width: 195px
+    font-size: 14px
+    position: relative
     &:hover
       color: $primaryColor
+  span
+    user-select: none
 
 .scrollableList
   height: 670px
@@ -26,3 +28,23 @@
 
 .countContainer
   color: white
+
+i
+  color: $primaryColor
+
+.selectCheckmark
+  position: absolute
+  color: $primaryColor
+
+.titleContainer
+  width: calc(100% - 53px)
+  display: inline-block
+  overflow: hidden
+  white-space: nowrap
+  text-overflow: ellipsis
+
+.highlightBook
+  box-shadow: 2px 2px 5px 1px #cfc9cf
+
+.removeHighlight
+  box-shadow: none

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BooksService } from 'src/app/shared/services/books-service/books.service';
-import { DragulaService } from 'ng2-dragula';
-import { Subscription } from 'rxjs';
+import { ManageBooksService } from '../lib-services/services/manage-books/manage-books.service';
+import { AuthService } from '../lib-services/services/auth.service';
 
 @Component({
   selector: 'app-manage-books',
@@ -13,15 +13,30 @@ export class ManageBooksComponent implements OnInit {
 
   allBooks: any = [];
   dummyImgUrl = 'https://dummyimage.com/600x400/cccccc/000000.jpg&text=No+Cover';
+  inProgressCount = 0;
+  completedCount = 0;
+  selectedItem: any = [];
 
   constructor(private booksService: BooksService,
-              private dragulaService: DragulaService) {
+              private manageBooksService: ManageBooksService,
+              private authService: AuthService) {
   }
 
   ngOnInit() {
     this.booksService.getAllBooks().subscribe(data => {
       this.allBooks = data;
     });
+  }
+
+  selectItemOnDblClick(book) {
+    this.selectedItem.push(book._id);
+  }
+
+  addToInProgress() {
+    const userId = this.authService.currentUserValue;
+    if (this.selectedItem.length !== 0) {
+      this.manageBooksService.addBooksToUnreadBucket(this.selectedItem, userId);
+    }
   }
 
 }
