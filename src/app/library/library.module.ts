@@ -15,6 +15,7 @@ import { SearchComponent } from './search/search.component';
 import { ManageBooksComponent } from './manage-books/manage-books.component';
 import { ChartsComponent } from './charts/charts.component';
 import { DragulaModule, DragulaService } from 'ng2-dragula';
+import { ToggleMenuService } from './lib-services/services/toggle-menu/toggle-menu.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { DragulaModule, DragulaService } from 'ng2-dragula';
   ],
   providers: [
     AuthService,
-    DragulaService
+    DragulaService,
+    ToggleMenuService
   ]
 })
 export class LibraryModule { }
