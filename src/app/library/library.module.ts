@@ -14,7 +14,7 @@ import { AsideComponent } from './aside/aside.component';
 import { SearchComponent } from './search/search.component';
 import { ManageBooksComponent } from './manage-books/manage-books.component';
 import { ChartsComponent } from './charts/charts.component';
-
+import { DragulaModule, DragulaService } from 'ng2-dragula';
 
 @NgModule({
   declarations: [
@@ -29,11 +29,13 @@ import { ChartsComponent } from './charts/charts.component';
     CommonModule,
     LibraryRoutingModule,
     FormsModule,
+    DragulaModule,
     ReactiveFormsModule,
     RouterModule
   ],
   providers: [
-    AuthService
+    AuthService,
+    DragulaService
   ]
 })
 export class LibraryModule { }

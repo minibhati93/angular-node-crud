@@ -1,2 +1,28 @@
 @import '~src/sass/variables'
 @import '~src/sass/base'
+
+.parentBooksList
+  list-style-type: none
+  padding: 0
+  li
+    cursor: pointer
+    overflow: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
+    &:hover
+      color: $primaryColor
+
+.scrollableList
+  height: 670px
+  overflow: scroll
+
+.badge-handle
+  height: 40px
+  width: 40px
+  display: inline-block
+  img
+    height: 100%
+    width: 100%
+
+.countContainer
+  color: white

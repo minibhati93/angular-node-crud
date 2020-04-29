@@ -1,5 +1,30 @@
 <div class="d-flex mainContentDiv">
   <app-aside></app-aside>
   <section class="flex-grow-1 p-3">
+    <div class="wrapperContainer row">
+      <div class="scrollableList col-6">
+        <ul class="parentBooksList sourceBooks">
+          <li *ngFor="let book of allBooks" class="border mb-2">
+            <span class="badge-handle">
+              <img [src]="book.thumbnailUrl ? book.thumbnailUrl : dummyImgUrl " alt="{{book.title}}" />
+            </span>
+            <span class="pl-3">{{book.title}}</span>
+          </li>
+        </ul>
+      </div>
+      <div class="col-6">
+        <div class="d-flex flex-column">
+          <div class="p-2 mb-5 card bg-success countContainer">
+            <p class="text-center">In Progress</p>
+          </div>
+          <div class="p-2 mb-5 card bg-info countContainer">
+            <p class="text-center">Completed</p>
+          </div>
+          <div class="p-2 mb-5 card bg-warning countContainer">
+            <p class="text-center">Wishlist</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 </div>
