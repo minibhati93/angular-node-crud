@@ -8,8 +8,9 @@
     "clean": "rimraf dist/*",
     "tsc": "tsc",
     "build": "npm run clean && tsc",
-    "start": "npm run build && node -r ts-node/register ./app.ts",
-    "start:watch": "nodemon"
+    "start": "node -r ts-node/register ./app.ts",
+    "start:watch": "nodemon",
+    "debug": "node --inspect -r ts-node/register ./app.ts"
   },
   "nodemonConfig": {
     "ignore": [

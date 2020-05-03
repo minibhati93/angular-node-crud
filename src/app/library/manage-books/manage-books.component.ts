@@ -28,14 +28,27 @@ export class ManageBooksComponent implements OnInit {
     });
   }
 
+  isClicked(id) {
+    return this.selectedItem.find( book => book.bookId === id );
+  }
+
   selectItemOnDblClick(book) {
-    this.selectedItem.push(book._id);
+    const unreadStack = {
+      bookId: book._id,
+      addedOn: new Date(),
+      modifiedOn: new Date(),
+      completionStatus: 0
+    };
+    this.selectedItem.push(unreadStack);
+    console.log(this.selectedItem.length);
   }
 
   addToInProgress() {
     const userId = this.authService.currentUserValue;
     if (this.selectedItem.length !== 0) {
-      this.manageBooksService.addBooksToUnreadBucket(this.selectedItem, userId);
+      this.manageBooksService.addBooksToUnreadBucket(this.selectedItem, userId.username).subscribe(response => {
+        console.log('in manage ', response);
+      });
     }
   }
 

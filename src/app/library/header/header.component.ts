@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   toggleFullMenu() {
     this.fullMenu = !this.fullMenu;
-    this.toggleViewService.updateMenuViewType(this.fullMenu);
+    this.toggleViewService.menuTypeSubject$.next(this.fullMenu);
   }
 
   ngOnDestroy() {

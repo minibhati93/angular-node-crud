@@ -15,9 +15,4 @@ export class ToggleMenuService {
   get getMenuViewType$(): Observable<any> {
     return this.menuTypeSubject$.asObservable();
   }
-
-  updateMenuViewType(type: boolean) {
-    console.log('setting ', type);
-    this.menuTypeSubject$.next(type);
-  }
 }

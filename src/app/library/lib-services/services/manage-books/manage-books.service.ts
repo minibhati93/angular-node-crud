@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ManageBooksService {
 
-  private BASE_URL = 'http://localhost:7000';
+  private BASE_URL = 'http://localhost:7000/api';
 
   constructor(private http: HttpClient) { }
 
