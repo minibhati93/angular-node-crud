@@ -35,9 +35,9 @@ export class ManageBooksComponent implements OnInit {
   selectItemOnDblClick(book) {
     const unreadStack = {
       bookId: book._id,
-      addedOn: new Date(),
-      modifiedOn: new Date(),
-      completionStatus: 0
+      addedDate: new Date(),
+      modifiedDate: new Date(),
+      progress: 0
     };
     this.selectedItem.push(unreadStack);
     console.log(this.selectedItem.length);
