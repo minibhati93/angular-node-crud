@@ -13,7 +13,7 @@ export class ManageBooksComponent implements OnInit {
 
   allBooks: any = [];
   dummyImgUrl = 'https://dummyimage.com/600x400/cccccc/000000.jpg&text=No+Cover';
-  inProgressCount = 0;
+  inProgressCount: number;
   completedCount = 0;
   selectedItem: any = [];
 
@@ -26,13 +26,23 @@ export class ManageBooksComponent implements OnInit {
     this.booksService.getAllBooks().subscribe(data => {
       this.allBooks = data;
     });
+    this.getBooksCount('inprogress', this.manageBooksService.inprogressCountSubject$);
   }
 
-  isClicked(id) {
+  getBooksCount(status: string, behaviourSubject) {
+    const userId = this.authService.currentUserValue;
+    this.manageBooksService.booksReadCount(userId.username, status).subscribe(
+        (data: number) =>   {
+          behaviourSubject.next(data);
+          this.inProgressCount = this.manageBooksService.getInProgressReadCount$;
+    });
+  }
+
+  isClicked(id: any) {
     return this.selectedItem.find( book => book.bookId === id );
   }
 
-  selectItemOnDblClick(book) {
+  selectItemOnDblClick(book: { _id: any; }) {
     const unreadStack = {
       bookId: book._id,
       addedOn: new Date(),

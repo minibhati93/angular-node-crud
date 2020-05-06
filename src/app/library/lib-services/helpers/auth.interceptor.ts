@@ -12,11 +12,11 @@ export class BasicAuthInterceptor implements HttpInterceptor {
 
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (currentUser && currentUser.authdata) {
-      // request = request.clone({
-      //   setHeaders: {
-      //       Authorization: `Basic ${currentUser.authdata}`
-      //   }
-      // });
+      request = request.clone({
+        setHeaders: {
+            Authorization: `Basic ${currentUser.authdata}`
+        }
+      });
     }
     return next.handle(request);
   }

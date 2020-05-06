@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ManageBooksService } from '../lib-services/services/manage-books/manage-books.service';
+import { AuthService } from '../lib-services/services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,26 +11,27 @@ import { ActivatedRoute } from '@angular/router';
 export class DashboardComponent implements OnInit {
 
   userName: string;
-  chartData: Array<any>;
+  inProgressCount: number;
+  completedCount = 0;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute,
+              private authService: AuthService,
+              private manageBooksService: ManageBooksService) { }
 
   ngOnInit() {
     if (!this.userName) {
       this.userName = localStorage.getItem('currentUser');
-      console.log('can dashboard 2', this.userName);
     }
-    this.generateData();
+    this.getBooksCount('inprogress', this.manageBooksService.inprogressCountSubject$);
   }
 
-  generateData() {
-    this.chartData = [];
-    for (let i = 0; i < (8 + Math.floor(Math.random() * 10)); i++) {
-      this.chartData.push([
-        `Index ${i}`,
-        Math.floor(Math.random() * 100)
-      ]);
-    }
+  getBooksCount(status: string, behaviourSubject) {
+    const userId = this.authService.currentUserValue;
+    this.manageBooksService.booksReadCount(userId.username, status).subscribe(
+        (data: number) =>   {
+          behaviourSubject.next(data);
+          this.inProgressCount = this.manageBooksService.getInProgressReadCount$;
+    });
   }
 
 }

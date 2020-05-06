@@ -2,8 +2,12 @@
   <app-aside></app-aside>
   <section class="flex-grow-1 p-3">
       <div class="books-options-container">
-        <button class="btn btn-light mr-3" (click)="addToInProgress()"><i class="fab fa-bitbucket"></i> INPROGRESS ({{inProgressCount}})</button>
-        <button class="btn btn-light"><i class="fa fa-check-circle"></i>  DONE ({{completedCount}}) </button>
+        <button class="btn btn-light mr-3" (click)="addToInProgress()"><i class="fab fa-bitbucket"></i> INPROGRESS
+           <span>({{ inProgressCount }})</span>
+        </button>
+        <button class="btn btn-light"><i class="fa fa-check-circle"></i>  DONE
+          <span>({{ completedCount }})</span>
+        </button>
       </div>
       <div class="scrollableList mt-3">
         <ul class="parentBooksList sourceBooks d-flex flex-wrap">
