@@ -17,7 +17,7 @@ const MetricsScheme = new Schema({
   progress: { type: Number, default: 0 },
   addedDate: { type: Date, required: true },
   modifiedDate: { type: Date, required: true },
-  completedDate: { type: Date }
+  completedDate: { type: Date , default: 0 }
 },
 { collection: 'metrics'}
 );
