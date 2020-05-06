@@ -15,48 +15,33 @@ export class LibraryController {
   }
 
   public addBooksToUnreadStack = (_books: any, userId: string) => {
-    return new Promise( (resolve, reject) => {
-      BookMetrics.findOne({ user: userId }).exec().then(
-        $dataModel => {
-          if($dataModel) {
-            // Update the Inprogress data for existing user
-            const inprogress = $dataModel.toObject().inprogress;
-            const ifBookExists = inprogress.
-                some((item: { bookId: string; }) =>
-                _books.some((modelItem: { bookId: string; }) => modelItem.bookId === item.bookId.toString()));
-            if(!ifBookExists){
-              inprogress.push(_books);
-              console.log(inprogress);
-              $dataModel.save().then(() => console.log('saved')).catch(err => console.log('err in updated'));
+    const actions: any[] = [];
+    _books.forEach((_unreadBook: any) => {
+      const promise = new Promise((_resolve, reject) => {
+        BookMetrics.findOne({ user: userId, bookId: _unreadBook.bookId }).exec().then(
+          $dataModel => {
+            if($dataModel){
+              console.log($dataModel);
             }
-            resolve($dataModel);
-          } else {
-            // Inserting a new User with Inprogress data
-            const doc = new BookMetrics({ user: userId, inprogress: _books });
-            doc.save().then(_data => {
-              console.log(' inserted ', _data);
-              resolve(_data);
-            }).catch(err => {
-              reject( 'insert error in insertion');
-            });
+            else {
+              const bookData = new BookMetrics({
+                user: userId,
+                bookId: _unreadBook.bookId,
+                status: 'inprogress',
+                progress: _unreadBook.progress,
+                addedDate: _unreadBook.addedDate,
+                modifiedDate: _unreadBook.modifiedDate,
+                completionDate: ''
+              });
+              bookData.save();
+              _resolve({bookId: _unreadBook.bookId, status: 'success'});
+            }
           }
-        }
-      ).catch(err =>{
-        reject( 'insert error in insertion');
+        );
       });
+      actions.push(promise);
     });
-  }
-
-  public addNewUserToUnread = async (_books: any, userId: string) => {
-    return new Promise((resolve, reject) => {
-      const doc = new BookMetrics({ user: userId, inprogress: _books });
-      doc.save().then(_data => {
-        console.log(' inserted ', _data);
-        resolve(_data);
-      }).catch(err => {
-        reject( 'insert error in insertion');
-      });
-    })
+    return Promise.all(actions);
   }
 }
 

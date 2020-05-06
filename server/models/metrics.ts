@@ -1,34 +1,23 @@
 import  mongoose, { Schema, Document, model, Model } from 'mongoose';
 
-interface Inprogress extends Document {
-  bookId: number,
-  addedOn: Date,
-  modifiedOn: Date,
-  completionStatus: number
-}
-
 interface IMetrics extends Document {
-  user: string;
-  read: {
-    bookId: number,
-    completedOn: Date
-  };
-  inprogress: [Inprogress]
+  user : string;
+  bookId : Schema.Types.ObjectId;
+  status: string;
+  progress: number;
+  addedDate: Date;
+  modifiedDate: Date;
+  completedDate: Date;
 }
 
 const MetricsScheme = new Schema({
   user : { type: String, ref: 'users', required: true },
-  read  : [{
-    bookId:  { type: Number, ref: 'books', required: true },
-    completedOn: { type: Date, required: true }
-  }],
-  inprogress : [{
-    bookId:  { type: Schema.Types.ObjectId, ref: 'books', required: true },
-    addedOn: { type: Date, required: true },
-    modifiedOn: { type: Date, required: true },
-    completionStatus: { type: Number, required: true , default: 0},
-    _id : { id:false }
-  }],
+  bookId : { type: Schema.Types.ObjectId, ref: 'books', required: true },
+  status: { type: String, required: true },
+  progress: { type: Number, default: 0 },
+  addedDate: { type: Date, required: true, default: Date.now() },
+  modifiedDate: { type: Date, required: true, default: Date.now() },
+  completedDate: { type: Date , default: Date.now() }
 },
 { collection: 'metrics'}
 );
