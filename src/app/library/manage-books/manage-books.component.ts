@@ -16,6 +16,7 @@ export class ManageBooksComponent implements OnInit {
   inProgressCount: number;
   completedCount = 0;
   selectedItem: any = [];
+  tabs = ['all', 'inprogress', 'read', 'tbr'];
 
   constructor(private booksService: BooksService,
               private manageBooksService: ManageBooksService,
@@ -50,7 +51,6 @@ export class ManageBooksComponent implements OnInit {
       completionStatus: 0
     };
     this.selectedItem.push(unreadStack);
-    console.log(this.selectedItem.length);
   }
 
   addToInProgress() {
@@ -61,5 +61,4 @@ export class ManageBooksComponent implements OnInit {
       });
     }
   }
-
 }

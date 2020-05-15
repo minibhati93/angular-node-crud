@@ -1,24 +1,49 @@
 <div class="d-flex mainContentDiv">
   <app-aside></app-aside>
   <section class="flex-grow-1 p-3">
-      <div class="books-options-container">
-        <button class="btn btn-light mr-3" (click)="addToInProgress()"><i class="fab fa-bitbucket"></i> INPROGRESS
-           <span>({{ inProgressCount }})</span>
-        </button>
-        <button class="btn btn-light"><i class="fa fa-check-circle"></i>  DONE
-          <span>({{ completedCount }})</span>
-        </button>
+    <div>
+      <ul class="nav nav-pills nav-justified" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="pill">All Books</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="pill">In Progress</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="pill" >Read</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="pill">To Be Read</a>
+        </li>
+      </ul>
+       <!-- Tab panes -->
+      <div class="tab-content border">
+        <div id="allBooks" class="container tab-pane active">
+          <div class="scrollableList mt-3">
+            <ul class="parentBooksList sourceBooks d-flex flex-wrap">
+              <li *ngFor="let book of allBooks" class="border m-2" [ngClass]="isClicked(book._id) ?'highlightBook' : 'removeHighlight' " >
+                <span class="badge-handle">
+                  <img [src]="book.thumbnailUrl ? book.thumbnailUrl : dummyImgUrl " alt="{{book.title}}" />
+                </span>
+                <span class="pl-3 titleContainer" (dblclick)="selectItemOnDblClick(book)">{{book.title}}</span>
+                <span *ngIf="isClicked(book._id)" class="fa fa-check-circle selectCheckmark"></span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div id="inprogress" class="container tab-pane fade"><br>
+          <h3>Menu 1</h3>
+          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+        <div id="read" class="container tab-pane fade"><br>
+          <h3>Menu 2</h3>
+          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+        </div>
+        <div id="toberead" class="container tab-pane fade"><br>
+          <h3>Menu 2</h3>
+          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+        </div>
       </div>
-      <div class="scrollableList mt-3">
-        <ul class="parentBooksList sourceBooks d-flex flex-wrap">
-          <li *ngFor="let book of allBooks" class="border m-2" [ngClass]="isClicked(book._id) ?'highlightBook' : 'removeHighlight' " >
-            <span class="badge-handle">
-              <img [src]="book.thumbnailUrl ? book.thumbnailUrl : dummyImgUrl " alt="{{book.title}}" />
-            </span>
-            <span class="pl-3 titleContainer" (dblclick)="selectItemOnDblClick(book)">{{book.title}}</span>
-            <span *ngIf="isClicked(book._id)" class="fa fa-check-circle selectCheckmark"></span>
-          </li>
-        </ul>
-      </div>
+    </div>
   </section>
 </div>
