@@ -1,4 +1,5 @@
 import  mongoose, { Schema, Document, model, Model } from 'mongoose';
+import { Book } from './book';
 
 interface IMetrics extends Document {
   user : string;
@@ -11,8 +12,8 @@ interface IMetrics extends Document {
 }
 
 const MetricsScheme = new Schema({
-  user : { type: String, ref: 'users', required: true },
-  bookId : { type: Schema.Types.ObjectId, ref: 'books', required: true },
+  user : { type: String, required: true },
+  bookId : { type: Schema.Types.ObjectId, ref: 'Book', required: true },
   status: { type: String, required: true },
   progress: { type: Number, default: 0 },
   addedDate: { type: Date, required: true, default: Date.now() },

@@ -53,6 +53,10 @@ export class LibraryController {
   public getBooksCountByStatus = async (userId: string, status: string) => {
     return await BookMetrics.find({user: userId, status }, 'bookId' ).lean();
   }
+
+  public getBooksByStatus = async (username: string, status: string ) => {
+    return await BookMetrics.find({user: username, status}).populate('bookId').exec();
+  }
 }
 
 

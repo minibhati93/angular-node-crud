@@ -12,11 +12,15 @@ import { AuthService } from '../lib-services/services/auth.service';
 export class ManageBooksComponent implements OnInit {
 
   allBooks: any = [];
+  inprogress: any = [];
+  read: any = [];
+  tbr: any = [];
   dummyImgUrl = 'https://dummyimage.com/600x400/cccccc/000000.jpg&text=No+Cover';
   inProgressCount: number;
   completedCount = 0;
   selectedItem: any = [];
-  tabs = ['all', 'inprogress', 'read', 'tbr'];
+  tabs: string[] = ['all', 'inprogress', 'read', 'tbr'];
+  selectedTab = this.tabs[0];
 
   constructor(private booksService: BooksService,
               private manageBooksService: ManageBooksService,
@@ -24,8 +28,11 @@ export class ManageBooksComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.booksService.getAllBooks().subscribe(data => {
-      this.allBooks = data;
+    const userId = this.authService.currentUserValue;
+    this.booksService.getAllBooks().subscribe(data => this.allBooks = data);
+    this.manageBooksService.getInProgressBooks(userId.username, 'inprogress').subscribe((data: any) => {
+      this.inprogress = data.response;
+      console.log(this.inprogress);
     });
     this.getBooksCount('inprogress', this.manageBooksService.inprogressCountSubject$);
   }

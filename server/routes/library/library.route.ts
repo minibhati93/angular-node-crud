@@ -38,6 +38,14 @@ export class LibraryRoutes {
       });
     });
 
+    this.router.get('/:status/:userId', (req: Request, res: Response, next: NextFunction) => {
+      const userId = req.params.userId;
+      const status = req.params.status;
+      libController.getBooksByStatus(userId, status).then(data => {
+        res.status(200).json({response: data});
+      }).catch((err:any) => next() );
+    });
+
     return this.router;
   }
 }

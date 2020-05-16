@@ -13,6 +13,7 @@
       color: $primaryColor
   span
     user-select: none
+    line-height: 1.2
 
 .scrollableList
   height: 600px
@@ -49,6 +50,9 @@ i
 .removeHighlight
   box-shadow: none
 
-.nav-pills .nav-link.active, .nav-pills .show>.nav-link
-  color: #fff
-  background-color: $primaryColor
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link
+  color: #fff !important
+  background-color: $primaryColor !important
+
+.nav-link
+  cursor: pointer

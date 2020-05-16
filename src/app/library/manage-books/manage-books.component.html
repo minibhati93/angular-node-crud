@@ -4,21 +4,21 @@
     <div>
       <ul class="nav nav-pills nav-justified" role="tablist">
         <li class="nav-item">
-          <a class="nav-link" data-toggle="pill">All Books</a>
+          <a class="nav-link" [class.active]="selectedTab === tabs[0]" (click)="selectedTab = tabs[0]" data-toggle="pill">All Books</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="pill">In Progress</a>
+          <a class="nav-link" [class.active]="selectedTab === tabs[1]" (click)="selectedTab = tabs[1]" data-toggle="pill">In Progress ({{inProgressCount}})</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="pill" >Read</a>
+          <a class="nav-link" [class.active]="selectedTab === tabs[2]" (click)="selectedTab = tabs[2]" data-toggle="pill" >Read</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="pill">To Be Read</a>
+          <a class="nav-link" [class.active]="selectedTab === tabs[3]" (click)="selectedTab = tabs[3]" data-toggle="pill">To Be Read</a>
         </li>
       </ul>
        <!-- Tab panes -->
       <div class="tab-content border">
-        <div id="allBooks" class="container tab-pane active">
+        <div *ngIf="selectedTab === tabs[0]" class="ml-2">
           <div class="scrollableList mt-3">
             <ul class="parentBooksList sourceBooks d-flex flex-wrap">
               <li *ngFor="let book of allBooks" class="border m-2" [ngClass]="isClicked(book._id) ?'highlightBook' : 'removeHighlight' " >
@@ -31,16 +31,25 @@
             </ul>
           </div>
         </div>
-        <div id="inprogress" class="container tab-pane fade"><br>
-          <h3>Menu 1</h3>
-          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <div *ngIf="selectedTab === tabs[1]" class="ml-2">
+          <div class="scrollableList mt-3">
+            <ul class="parentBooksList sourceBooks d-flex flex-wrap">
+              <li *ngFor="let index of inprogress;" class="border m-2" [ngClass]="isClicked(index.bookId._id) ?'highlightBook' : 'removeHighlight' " >
+                <span class="badge-handle">
+                  <img [src]="index.bookId.thumbnailUrl ? index.bookId.thumbnailUrl : dummyImgUrl " alt="{{index.bookId.title}}" />
+                </span>
+                <span class="pl-3 titleContainer" (dblclick)="selectItemOnDblClick(index.bookId)">{{index.bookId.title}}</span>
+                <span *ngIf="isClicked(index.bookId._id)" class="fa fa-check-circle selectCheckmark"></span>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div id="read" class="container tab-pane fade"><br>
+        <div *ngIf="selectedTab === tabs[2]" class="ml-2">
           <h3>Menu 2</h3>
           <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
         </div>
-        <div id="toberead" class="container tab-pane fade"><br>
-          <h3>Menu 2</h3>
+        <div *ngIf="selectedTab === tabs[3]" class="ml-2">
+          <h3>Menu 3</h3>
           <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
         </div>
       </div>
