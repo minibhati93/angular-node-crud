@@ -1,58 +1,74 @@
 <div class="d-flex mainContentDiv">
   <app-aside></app-aside>
   <section class="flex-grow-1 p-3">
-    <div>
-      <ul class="nav nav-pills nav-justified" role="tablist">
-        <li class="nav-item">
-          <a class="nav-link" [class.active]="selectedTab === tabs[0]" (click)="selectedTab = tabs[0]" data-toggle="pill">All Books</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [class.active]="selectedTab === tabs[1]" (click)="selectedTab = tabs[1]" data-toggle="pill">In Progress ({{inProgressCount}})</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [class.active]="selectedTab === tabs[2]" (click)="selectedTab = tabs[2]" data-toggle="pill" >Read</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [class.active]="selectedTab === tabs[3]" (click)="selectedTab = tabs[3]" data-toggle="pill">To Be Read</a>
-        </li>
-      </ul>
-       <!-- Tab panes -->
-      <div class="tab-content border">
-        <div *ngIf="selectedTab === tabs[0]" class="ml-2">
-          <div class="scrollableList mt-3">
-            <ul class="parentBooksList sourceBooks d-flex flex-wrap">
-              <li *ngFor="let book of allBooks" class="border m-2" [ngClass]="isClicked(book._id) ?'highlightBook' : 'removeHighlight' " >
-                <span class="badge-handle">
-                  <img [src]="book.thumbnailUrl ? book.thumbnailUrl : dummyImgUrl " alt="{{book.title}}" />
-                </span>
-                <span class="pl-3 titleContainer" (dblclick)="selectItemOnDblClick(book)">{{book.title}}</span>
-                <span *ngIf="isClicked(book._id)" class="fa fa-check-circle selectCheckmark"></span>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div *ngIf="selectedTab === tabs[1]" class="ml-2">
-          <div class="scrollableList mt-3">
-            <ul class="parentBooksList sourceBooks d-flex flex-wrap">
-              <li *ngFor="let index of inprogress;" class="border m-2" [ngClass]="isClicked(index.bookId._id) ?'highlightBook' : 'removeHighlight' " >
-                <span class="badge-handle">
-                  <img [src]="index.bookId.thumbnailUrl ? index.bookId.thumbnailUrl : dummyImgUrl " alt="{{index.bookId.title}}" />
-                </span>
-                <span class="pl-3 titleContainer" (dblclick)="selectItemOnDblClick(index.bookId)">{{index.bookId.title}}</span>
-                <span *ngIf="isClicked(index.bookId._id)" class="fa fa-check-circle selectCheckmark"></span>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div *ngIf="selectedTab === tabs[2]" class="ml-2">
-          <h3>Menu 2</h3>
-          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-        </div>
-        <div *ngIf="selectedTab === tabs[3]" class="ml-2">
-          <h3>Menu 3</h3>
-          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+    <div class="toolbar-container">
+      <div class="dropdown">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+          <i class="fa fa-sort"></i> Sort by
+        </button>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#">Name</a>
+          <a class="dropdown-item" href="#">Date Added</a>
+          <a class="dropdown-item" href="#">Date Modified</a>
         </div>
       </div>
+      <div class="ml-3"><button class="btn"> <i class="fa fa-check-circle"></i> Select</button></div>
+      <div class="btn-group float-right">
+        <button type="button" (click)="viewType = 'thumbnail'" [ngClass]="{ 'activeBtn' : viewType == 'thumbnail' }" class="btn listViewBtnGroup border"><i class="fas fa-th"></i></button>
+        <button type="button" (click)="viewType = 'list'" [ngClass]="{ 'activeBtn' : viewType == 'list' }" class="btn listViewBtnGroup border"><i class="fas fa-list-ul"></i></button>
+      </div>
     </div>
+    <!--- Thumbail view starts  -->
+    <div *ngIf="viewType === 'thumbnail'">
+      <div *ngIf="currentState === 'all'" class="scrollableList mt-3 box-shadow rounded p-2">
+        <ul class="parentBooksList sourceBooks d-flex flex-wrap">
+          <li *ngFor="let book of allBooks" class="border m-2" [ngClass]="isClicked(book._id) ?'highlightBook' : 'removeHighlight' " >
+            <span class="badge-handle">
+              <img [src]="book.thumbnailUrl ? book.thumbnailUrl : dummyImgUrl " alt="{{book.title}}" />
+            </span>
+            <span class="pl-3 titleContainer" (dblclick)="selectItemOnDblClick(book)">{{book.title}}</span>
+            <span *ngIf="isClicked(book._id)" class="fa fa-check-circle selectCheckmark"></span>
+          </li>
+        </ul>
+      </div>
+      <div *ngIf="currentState !== 'all'" class="scrollableList mt-3 box-shadow rounded p-2">
+        <ul class="parentBooksList sourceBooks d-flex flex-wrap">
+          <li *ngFor="let index of allBooks" class="border m-2" [ngClass]="isClicked(index.bookId._id) ?'highlightBook' : 'removeHighlight' " >
+            <span class="badge-handle">
+              <img [src]="index.bookId.thumbnailUrl ? index.bookId.thumbnailUrl : dummyImgUrl " alt="{{index.bookId.title}}" />
+            </span>
+            <span class="pl-3 titleContainer" (dblclick)="selectItemOnDblClick(index.bookId)">{{index.bookId.title}}</span>
+            <span *ngIf="isClicked(index.bookId._id)" class="fa fa-check-circle selectCheckmark"></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!--- Thumbail view ends  -->
+    <!--- List view starts  -->
+    <div *ngIf="viewType === 'list'">
+      <div class="scrollableList mt-3 box-shadow rounded">
+        <table class="table table-border">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Authors</th>
+              <th>Categories</th>
+              <th>PageCount</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let book of allBooks">
+              <td>{{ book.title }}</td>
+              <td>{{ book.authors }}</td>
+              <td>{{ book.categories }}</td>
+              <td>{{ book.pageCount }}</td>
+              <td>{{ book.status }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!--- List view ends  -->
   </section>
 </div>

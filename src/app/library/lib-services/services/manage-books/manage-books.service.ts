@@ -37,7 +37,7 @@ export class ManageBooksService {
     return this.readCountSubject$.value;
   }
 
-  getInProgressBooks(userId: string, status: string) {
+  getBooksByStatus(userId: string, status: string) {
     return this.http.get(this.BASE_URL + '/library/' + status + '/' + userId);
   }
 }

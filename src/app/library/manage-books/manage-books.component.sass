@@ -28,7 +28,7 @@
     width: 100%
 
 .countContainer
-  color: white
+  color: $textColor
 
 i
   color: $primaryColor
@@ -56,3 +56,56 @@ i
 
 .nav-link
   cursor: pointer
+
+.toolbar-container
+  button
+    color: $textColor
+    background: $primaryColor
+    border: none
+  i
+    color: $textColor
+
+.btn-group
+  button
+    color: $primaryColor
+    background: $textColor
+    i
+      color: $primaryColor
+
+.listViewBtnGroup
+  color: $textColor
+  &:hover
+    background: $textColor
+    color: $primaryColor
+  &:focus
+    outline: none
+
+.activeBtn
+  background: $primaryColor !important
+  color: $textColor !important
+  i
+    color: $textColor !important
+
+.toolbar-container > div
+  display: inline-block
+
+table
+  display: flex
+  flex-flow: column
+  width: 100%
+
+thead
+  flex: 0 0 auto
+
+tbody
+  flex: 1 1 auto
+  display: block
+  overflow-y: auto
+  overflow-x: hidden
+  height: calc(100vh - 232px)
+
+tr
+  width: 100%
+  display: table
+  table-layout: fixed
+

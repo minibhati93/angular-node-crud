@@ -13,7 +13,7 @@ const routes: Routes = [
     canActivateChild: [AuthGuardService] ,
     children: [
       { path: '', component: DashboardComponent },
-      { path: 'manage', component: ManageBooksComponent }
+      { path: 'manage/:state', component: ManageBooksComponent }
     ]
   },
   { path: 'login', component: LoginComponent },

@@ -1,7 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges } from '@angular/core';
 import { BooksService } from 'src/app/shared/services/books-service/books.service';
 import { ManageBooksService } from '../lib-services/services/manage-books/manage-books.service';
 import { AuthService } from '../lib-services/services/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-manage-books',
@@ -12,38 +13,29 @@ import { AuthService } from '../lib-services/services/auth.service';
 export class ManageBooksComponent implements OnInit {
 
   allBooks: any = [];
-  inprogress: any = [];
-  read: any = [];
-  tbr: any = [];
   dummyImgUrl = 'https://dummyimage.com/600x400/cccccc/000000.jpg&text=No+Cover';
   inProgressCount: number;
   completedCount = 0;
   selectedItem: any = [];
-  tabs: string[] = ['all', 'inprogress', 'read', 'tbr'];
-  selectedTab = this.tabs[0];
+  currentState = 'all';
+  viewType = 'thumbnail';
 
   constructor(private booksService: BooksService,
               private manageBooksService: ManageBooksService,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private route: ActivatedRoute,
+              private router: Router) {
+              this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
   ngOnInit() {
+    this.currentState = this.route.snapshot.paramMap.get('state');
     const userId = this.authService.currentUserValue;
-    this.booksService.getAllBooks().subscribe(data => this.allBooks = data);
-    this.manageBooksService.getInProgressBooks(userId.username, 'inprogress').subscribe((data: any) => {
-      this.inprogress = data.response;
-      console.log(this.inprogress);
-    });
-    this.getBooksCount('inprogress', this.manageBooksService.inprogressCountSubject$);
-  }
-
-  getBooksCount(status: string, behaviourSubject) {
-    const userId = this.authService.currentUserValue;
-    this.manageBooksService.booksReadCount(userId.username, status).subscribe(
-        (data: number) =>   {
-          behaviourSubject.next(data);
-          this.inProgressCount = this.manageBooksService.getInProgressReadCount$;
-    });
+    if (this.currentState === 'all') {
+      this.booksService.getAllBooks().subscribe(data => this.allBooks = data);
+    } else {
+      this.manageBooksService.getBooksByStatus(userId.username, this.currentState).subscribe((data: any) => this.allBooks = data.response);
+    }
   }
 
   isClicked(id: any) {
