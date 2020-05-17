@@ -2,15 +2,15 @@
   <app-aside></app-aside>
   <section class="flex-grow-1 p-3">
     <div class="toolbar-container">
-      <div class="dropdown">
-        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-          <i class="fa fa-sort"></i> Sort by
-        </button>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="#">Name</a>
-          <a class="dropdown-item" href="#">Date Added</a>
-          <a class="dropdown-item" href="#">Date Modified</a>
-        </div>
+      <div class="customSelectContainer rounded">
+        <form [formGroup]="form">
+          <select formControlName="options" (change)="sortBy($event)" class="customSelect">
+            <option value="">Sort By</option>
+            <option *ngFor="let option of optionsList" [value]="option.id">
+              {{ option.name }}
+            </option>
+          </select>
+        </form>
       </div>
       <div class="ml-3"><button class="btn"> <i class="fa fa-check-circle"></i> Select</button></div>
       <div class="btn-group float-right">
@@ -22,7 +22,7 @@
     <div *ngIf="viewType === 'thumbnail'">
       <div *ngIf="currentState === 'all'" class="scrollableList mt-3 box-shadow rounded p-2">
         <ul class="parentBooksList sourceBooks d-flex flex-wrap">
-          <li *ngFor="let book of allBooks" class="border m-2" [ngClass]="isClicked(book._id) ?'highlightBook' : 'removeHighlight' " >
+          <li *ngFor="let book of filteredBooksList" class="border m-2" [ngClass]="isClicked(book._id) ?'highlightBook' : 'removeHighlight' " >
             <span class="badge-handle">
               <img [src]="book.thumbnailUrl ? book.thumbnailUrl : dummyImgUrl " alt="{{book.title}}" />
             </span>
@@ -58,7 +58,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let book of allBooks">
+            <tr *ngFor="let book of filteredBooksList">
               <td>{{ book.title }}</td>
               <td>{{ book.authors }}</td>
               <td>{{ book.categories }}</td>
