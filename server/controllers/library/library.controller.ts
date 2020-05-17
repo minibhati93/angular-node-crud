@@ -14,6 +14,16 @@ export class LibraryController {
    });
   }
 
+  public createUser = (username: string,email: string, password: string, role: string,
+                       firstName: string, lastName: string) => {
+    const user = new User({ username, email, password, role, firstName, lastName });
+    return User.findOne({email}).exec().then(async $model => {
+      if(!$model) {
+        return await user.save().then(data => data).catch(err => false);
+      }
+    });
+  }
+
   /***
    * Add books to inprogress status
    */

@@ -47,4 +47,8 @@ export class AuthService {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
   }
+
+  register(body: User) {
+    return this.http.post(this.BASE_URL + '/api/library/signup', body);
+  }
 }

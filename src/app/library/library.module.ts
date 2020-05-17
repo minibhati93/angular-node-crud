@@ -16,6 +16,7 @@ import { ManageBooksComponent } from './manage-books/manage-books.component';
 import { ChartsComponent } from './charts/charts.component';
 import { DragulaModule, DragulaService } from 'ng2-dragula';
 import { ToggleMenuService } from './lib-services/services/toggle-menu/toggle-menu.service';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { ToggleMenuService } from './lib-services/services/toggle-menu/toggle-me
     LoginComponent,
     ErrorComponent,
     AsideComponent,
-    SearchComponent, ManageBooksComponent, ChartsComponent],
+    SearchComponent, ManageBooksComponent, ChartsComponent, SignupComponent],
   imports: [
     CommonModule,
     LibraryRoutingModule,

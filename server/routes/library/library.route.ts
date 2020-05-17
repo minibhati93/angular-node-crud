@@ -19,6 +19,17 @@ export class LibraryRoutes {
       .catch(err => next(err));
     });
 
+    this.router.post('/signup', (req: Request, res: Response, next: NextFunction) => {
+      const {username, password, email, role, firstName, lastName} = req.body;
+      libController.createUser(username, email, password, role, firstName, lastName).then((data:any) => {
+        if(data){
+          res.status(200).json({response: 'success'});
+        } else {
+          res.status(500).json({response: 'Account with this email address already exists.'});
+        }
+      })
+    });
+
     this.router.post('/add/unread', (req: Request, res: Response, next: NextFunction) => {
       const {books, userId} = req.body;
       libController.addBooksToUnreadStack(books, userId).then(data => {

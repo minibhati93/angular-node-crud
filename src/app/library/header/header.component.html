@@ -2,11 +2,13 @@
   <a class="navbar-brand">My Library</a>
   <button class="btn header-btn" (click)="toggleFullMenu()"><i class="fa fa-align-justify"></i></button>
   <ul class="navbar-nav ml-auto">
-    <li class="nav-item">
+    <li *ngIf="currentUser" class="nav-item">
       <button type="button" class="btn header-btn">
         <i class="fas fa-user-circle fa-lg"></i>
-         {{ username }}
+         {{ currentUser.username }}
       </button>
+    </li>
+    <li *ngIf="currentUser" class="nav-item">
       <button type="button" class="btn header-btn" (click)="logout()">
         <i class="fas fa-sign-out-alt fa-lg"></i>
          Logout

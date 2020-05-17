@@ -6,6 +6,7 @@ import { AuthGuardService } from './lib-services/guards/auth-guard.service';
 import { LoginComponent } from './login/login.component';
 import { ErrorComponent } from './error/error.component';
 import { ManageBooksComponent } from './manage-books/manage-books.component';
+import { SignupComponent } from './signup/signup.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
     ]
   },
   { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupComponent },
   { path: '**', component: ErrorComponent }
 ];
 

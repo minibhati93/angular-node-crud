@@ -3,6 +3,7 @@ import { ToggleMenuService } from '../lib-services/services/toggle-menu/toggle-m
 import { Subscription } from 'rxjs';
 import { AuthService } from '../lib-services/services/auth.service';
 import { Router } from '@angular/router';
+import { User } from 'src/app/shared/models/user.model';
 
 @Component({
   selector: 'app-lib-header',
@@ -13,7 +14,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   public fullMenu: boolean;
   subscription: Subscription;
-  username = 'Mini Bhati';
+  currentUser: User;
 
   constructor(private toggleViewService: ToggleMenuService,
               private authService: AuthService,
@@ -23,6 +24,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subscription = this.toggleViewService.getMenuViewType$.subscribe(menu => {
       this.fullMenu = menu;
     });
+    this.authService.currentUser.subscribe(currentUser => this.currentUser = currentUser);
   }
 
   toggleFullMenu() {
@@ -32,7 +34,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   logout() {
     this.authService.logout();
-    this.router.navigateByUrl('/');
+    localStorage.removeItem('currentUser');
+    this.router.navigateByUrl('/login');
   }
 
   ngOnDestroy() {
