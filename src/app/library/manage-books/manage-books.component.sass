@@ -1,0 +1,120 @@
+@import '~src/sass/variables'
+@import '~src/sass/base'
+
+.parentBooksList
+  list-style-type: none
+  padding: 0
+  li
+    cursor: pointer
+    width: 195px
+    font-size: 14px
+    position: relative
+    &:hover
+      color: $primaryColor
+  span
+    user-select: none
+    line-height: 1.2
+
+.scrollableList
+  height: 600px
+  overflow: scroll
+
+.badge-handle
+  height: 40px
+  width: 40px
+  display: inline-block
+  img
+    height: 100%
+    width: 100%
+
+.countContainer
+  color: $textColor
+
+i
+  color: $primaryColor
+
+.selectCheckmark
+  position: absolute
+  color: $primaryColor
+
+.titleContainer
+  width: calc(100% - 53px)
+  display: inline-block
+  overflow: hidden
+  white-space: nowrap
+  text-overflow: ellipsis
+
+.highlightBook
+  box-shadow: 2px 2px 5px 1px #cfc9cf
+
+.removeHighlight
+  box-shadow: none
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link
+  color: #fff !important
+  background-color: $primaryColor !important
+
+.nav-link
+  cursor: pointer
+
+.toolbar-container
+  button
+    color: $textColor
+    background: $primaryColor
+    border: none
+  i
+    color: $textColor
+
+.btn-group
+  button
+    color: $primaryColor
+    background: $textColor
+    i
+      color: $primaryColor
+
+.listViewBtnGroup
+  color: $textColor
+  &:hover
+    background: $textColor
+    color: $primaryColor
+  &:focus
+    outline: none
+
+.activeBtn
+  background: $primaryColor !important
+  color: $textColor !important
+  i
+    color: $textColor !important
+
+.toolbar-container > div
+  display: inline-block
+
+table
+  display: flex
+  flex-flow: column
+  width: 100%
+
+thead
+  flex: 0 0 auto
+
+tbody
+  flex: 1 1 auto
+  display: block
+  overflow-y: auto
+  overflow-x: hidden
+  height: calc(100vh - 232px)
+
+tr
+  width: 100%
+  display: table
+  table-layout: fixed
+
+.customSelectContainer
+  padding: 4px 7px 7px
+  background: $primaryColor
+  select
+    color: $textColor
+    background: $primaryColor
+    border: none
+    &:focus
+      outline: none

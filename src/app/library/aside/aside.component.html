@@ -1,0 +1,40 @@
+<aside [style.width]="fullMenuView ? '185px': '' ">
+  <ul class="pl-0">
+    <li class="p-2" routerLink="/">
+      <div class="sidebarMenu p-2">
+        <i class="fa fa-user-circle fa-lg"></i>
+        <span *ngIf="fullMenuView" class="pl-3">Mini Bhati</span>
+      </div>
+    </li>
+    <li class="p-2">
+      <div class="sidebarMenu p-2">
+        <i class="fa fa-book-reader fa-lg"></i>
+        <span *ngIf="fullMenuView" class="pl-3">Dashboard</span>
+      </div>
+    </li>
+    <li class="p-2">
+      <div class="sidebarMenu p-2">
+        <i class="fa fa-search fa-lg"></i>
+        <span *ngIf="fullMenuView" class="pl-3">Search</span>
+      </div>
+    </li>
+    <li class="p-2">
+      <div class="sidebarMenu p-2">
+        <i class="fa fa-book fa-lg"></i>
+        <span *ngIf="fullMenuView" (click)="showDropdown = !showDropdown" class="pl-3">Manage Books</span>
+      </div>
+      <div class="dropdown-container ml-5" *ngIf="showDropdown">
+        <a class="sidebarMenu p-2" (click)="navigateTo('/manage/all')">Library</a>
+        <a class="sidebarMenu p-2" (click)="navigateTo('/manage/inprogress')">In Progress</a>
+        <a class="sidebarMenu p-2" (click)="navigateTo('/manage/read')">Read</a>
+        <a class="sidebarMenu p-2" (click)="navigateTo('/manage/tbr')">To Be Read</a>
+      </div>
+    </li>
+    <li class="p-2">
+      <div class="sidebarMenu p-2">
+        <i class="fa fa-cog fa-lg"></i>
+        <span *ngIf="fullMenuView" class="pl-3">Settings</span>
+      </div>
+    </li>
+  </ul>
+</aside>

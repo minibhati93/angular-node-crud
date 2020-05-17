@@ -1,0 +1,25 @@
+@import '~src/sass/variables'
+
+aside
+  background: $primaryColor
+  -webkit-flex: 1
+  flex: 1
+  height: 100%
+  ul
+    list-style: none
+    li
+      text-decoration: none
+      color: white
+      flex-grow: 1
+      cursor: pointer
+      user-select: none
+
+.sidebarMenu
+  &:hover
+    color: $primaryColor
+    background: white
+    border-radius: 2px
+
+.dropdown-container
+  a
+    display: block

@@ -1,6 +1,6 @@
 import  mongoose, { Schema, Document, model, Model } from 'mongoose';
 
-interface IBook extends Document {
+export interface IBook extends Document {
   title: string;
   isbn: string;
   pageCount: number;
@@ -13,7 +13,7 @@ interface IBook extends Document {
   categories: Array<string>;
 }
 
-const BookSchema = new Schema({
+export const BookSchema = new Schema({
   title : { type: String, required: true },
   isbn  : { type: String, required: true },
   pageCount: { type: Number, required: true },
