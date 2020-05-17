@@ -10,11 +10,12 @@ export class BasicAuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler) {
 
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (currentUser && currentUser.authdata) {
+    const token = localStorage.getItem('jwt');
+    if (token) {
       request = request.clone({
         setHeaders: {
-            Authorization: `Basic ${currentUser.authdata}`
+          'Content-Type':  'application/json',
+          Authorization: `Bearer ${token}`
         }
       });
     }

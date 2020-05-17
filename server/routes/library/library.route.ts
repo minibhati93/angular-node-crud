@@ -14,8 +14,13 @@ export class LibraryRoutes {
       const username=parts[0];
       const password=parts[1];
       libController.authenticate(username, password)
-      .then(response => response ?
-        res.status(200).json(response) : next({ message: 'Username or password is incorrect' }))
+      .then(data => {
+        if(data){
+          res.status(data.status).json(data);
+        } else {
+          res.status(401).json({response: `User doesn't exist. Please register.`})
+        }
+      })
       .catch(err => next(err));
     });
 

@@ -11,13 +11,6 @@ export class AuthGuardService implements CanActivateChild {
               public authService: AuthService) { }
 
   canActivateChild() {
-    const currentUser = this.authService.currentUserValue;
-    if (currentUser) {
-      // logged in so return true
-      return true;
-    } else {
-      this.router.navigateByUrl('/login');
-      return false;
-    }
+    return true;
   }
 }

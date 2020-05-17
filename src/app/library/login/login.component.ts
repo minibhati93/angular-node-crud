@@ -16,10 +16,6 @@ export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private authService: AuthService,
               private router: Router) {
-  // redirect to home if already logged in
-  if (this.authService.currentUserValue) {
-    this.router.navigateByUrl('/');
-  }
   }
 
   ngOnInit() {
@@ -30,11 +26,14 @@ export class LoginComponent implements OnInit {
   }
 
   login(value) {
-    this.authService.login(value).subscribe((user: User) => {
-      if (user) {
+    this.authService.login(value).subscribe((response: any) => {
+      if (response.token) {
+        if (!this.authService.getToken()) {
+          this.authService.setToken(response.token);
+        }
         this.router.navigateByUrl('/');
       }
-    });
+    }, err => console.log('error ', err.error.error));
   }
 
 }
