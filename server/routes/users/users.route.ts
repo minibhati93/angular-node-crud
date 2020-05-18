@@ -1,5 +1,5 @@
 import { Request, Response, Router, NextFunction } from 'express';
-import { libController } from '../../controllers/library/library.controller';
+import { authController } from '../../controllers/auth/auth.controller';
 
 export class UserRoutes {
   public router: Router = Router();
@@ -13,7 +13,7 @@ export class UserRoutes {
     const parts=auth.split(/:/);                         // split on colon
     const username=parts[0];
     const password=parts[1];
-    libController.authenticate(username, password)
+    authController.authenticate(username, password)
     .then(data => {
       if(data){
         res.status(data.status).json(data);
@@ -26,7 +26,7 @@ export class UserRoutes {
 
   this.router.post('/signup', (req: Request, res: Response, next: NextFunction) => {
     const {username, password, email, role, firstName, lastName} = req.body;
-    libController.createUser(username, email, password, role, firstName, lastName).then((data:any) => {
+    authController.createUser(username, email, password, role, firstName, lastName).then((data:any) => {
       if(data){
         res.status(200).json({response: 'success'});
       } else {

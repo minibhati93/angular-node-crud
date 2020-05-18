@@ -2,8 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 
 export class ValidateTokenHandler {
-  public validateToken = (err: any, req: Request, res: Response, next: NextFunction) => {
-    console.log(' iin  validate ');
+  public validateToken = (req: Request, res: Response, next: NextFunction) => {
     const authorizationHeaader = req.headers.authorization;
     let result;
     if (authorizationHeaader) {
@@ -14,7 +13,7 @@ export class ValidateTokenHandler {
       };
       try {
         // verify makes sure that the token hasn't expired and has been issued by us
-        const secret = process.env.JWT_SECRET || 'thisisjsonwebtokensecretkeyonlyknowntomylibrary';
+        const secret = process.env.JWT_SECRET || 'abc';
         result = jwt.verify(token, secret, options);
 
         // Let's pass back the decoded token to the request object
