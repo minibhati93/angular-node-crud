@@ -15,8 +15,8 @@ export class LibraryRoutes {
       });
     });
 
-    this.router.get('/count/:status/:userId', (req: Request, res: Response, next: NextFunction) => {
-      const userId = req.params.userId;
+    this.router.get('/count/:status/', (req: Request, res: Response, next: NextFunction) => {
+      const userId = req.cookies.user;
       const status = req.params.status;
       libController.getBooksCountByStatus(userId, status).then(data => {
         res.status(200).json(data.length);
@@ -25,8 +25,8 @@ export class LibraryRoutes {
       });
     });
 
-    this.router.get('/:status/:userId', (req: Request, res: Response, next: NextFunction) => {
-      const userId = req.params.userId;
+    this.router.get('/:status/', (req: Request, res: Response, next: NextFunction) => {
+      const userId = req.cookies.user;
       const status = req.params.status;
       libController.getBooksByStatus(userId, status).then(data => {
         res.status(200).json({response: data});

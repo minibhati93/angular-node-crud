@@ -22,7 +22,7 @@ app.use(cors());
 app.use(express.json());
 app.use('/', userRoutes.getRouter());
 app.use('/api/books', jwtMiddleware.validateToken, bookRoutes.getRouter());
-app.use('/api/library', libRoutes.getRouter());
+app.use('/api/library', jwtMiddleware.validateToken,libRoutes.getRouter());
 
 connect();
 

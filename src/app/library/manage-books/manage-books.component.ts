@@ -41,14 +41,13 @@ export class ManageBooksComponent implements OnInit {
 
   ngOnInit() {
     this.currentState = this.route.snapshot.paramMap.get('state');
-    const userId = this.authService.currentUserValue;
     if (this.currentState === 'all') {
       this.booksService.getAllBooks().subscribe(data => {
         this.allBooks = data;
         this.filteredBooksList = [...this.allBooks];
       });
     } else {
-      this.manageBooksService.getBooksByStatus(userId.username, this.currentState).subscribe((data: any) => this.allBooks = data.response);
+      this.manageBooksService.getBooksByStatus(this.currentState).subscribe((data: any) => this.allBooks = data.response);
     }
   }
 
@@ -83,9 +82,8 @@ export class ManageBooksComponent implements OnInit {
   }
 
   addToInProgress() {
-    const userId = this.authService.currentUserValue;
     if (this.selectedItem.length !== 0) {
-      this.manageBooksService.addBooksToUnreadBucket(this.selectedItem, userId.username).subscribe(response => {
+      this.manageBooksService.addBooksToUnreadBucket(this.selectedItem).subscribe(response => {
         console.log('in manage ', response);
       });
     }

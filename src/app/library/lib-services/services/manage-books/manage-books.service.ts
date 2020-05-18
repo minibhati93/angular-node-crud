@@ -21,12 +21,12 @@ export class ManageBooksService {
     this.readCountSubject$ = new BehaviorSubject<number>(0);
   }
 
-  addBooksToUnreadBucket(books: Array<string>, userId: string) {
-    return this.http.post(this.BASE_URL + '/library/add/unread', {userId, books});
+  addBooksToUnreadBucket(books: Array<string>) {
+    return this.http.post(this.BASE_URL + '/library/add/unread', {books});
   }
 
-  booksReadCount(userId: string, status: string) {
-    return this.http.get(this.BASE_URL + '/library/count/' + status + '/' + userId);
+  booksReadCount(status: string) {
+    return this.http.get(this.BASE_URL + '/library/count/' + status);
   }
 
   get getInProgressReadCount$() {
@@ -37,7 +37,7 @@ export class ManageBooksService {
     return this.readCountSubject$.value;
   }
 
-  getBooksByStatus(userId: string, status: string) {
-    return this.http.get(this.BASE_URL + '/library/' + status + '/' + userId);
+  getBooksByStatus(status: string) {
+    return this.http.get(this.BASE_URL + '/library/' + status);
   }
 }
