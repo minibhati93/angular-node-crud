@@ -25,7 +25,7 @@ export class AuthService {
 
   login({username, password} ) {
     const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa(username + ':' + password) });
-    return this.http.get(this.BASE_URL + '/api/library/login', {headers});
+    return this.http.get(this.BASE_URL + '/login', {headers});
   }
 
   logout() {
@@ -35,7 +35,7 @@ export class AuthService {
   }
 
   register(body: User) {
-    return this.http.post(this.BASE_URL + '/api/library/signup', body);
+    return this.http.post(this.BASE_URL + '/signup', body);
   }
 
   setToken(token) {
@@ -44,5 +44,14 @@ export class AuthService {
 
   getToken() {
     return localStorage.getItem('jwt');
+  }
+
+  isAuthenticated(): boolean {
+    const token = localStorage.getItem('jwt');
+    return !this.isTokenExpired(token);
+  }
+
+  isTokenExpired(token: string) {
+    return false;
   }
 }
