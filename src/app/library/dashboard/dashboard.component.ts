@@ -21,14 +21,13 @@ export class DashboardComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    if (this.authService.currentUserValue) {
-      this.userId = this.authService.currentUserValue;
+    if (this.authService.isAuthenticated()) {
       this.getBooksCount('inprogress', this.manageBooksService.inprogressCountSubject$);
     }
   }
 
   getBooksCount(status: string, behaviourSubject) {
-    this.manageBooksService.booksReadCount(this.userId.username, status).subscribe(
+    this.manageBooksService.booksReadCount(status).subscribe(
         (data: number) =>   {
           behaviourSubject.next(data);
           this.inProgressCount = this.manageBooksService.getInProgressReadCount$;
