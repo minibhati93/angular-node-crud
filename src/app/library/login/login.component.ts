@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { AuthService } from '../lib-services/services/auth.service';
 import { User } from 'src/app/shared/models/user.model';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -33,7 +34,11 @@ export class LoginComponent implements OnInit {
         }
         this.router.navigateByUrl('/');
       }
-    }, err => console.log('error ', err.error.error));
+    }, err => this.catchError(err));
+  }
+
+  catchError(err: HttpErrorResponse) {
+    console.log(err);
   }
 
 }

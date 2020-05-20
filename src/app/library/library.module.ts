@@ -19,6 +19,7 @@ import { ToggleMenuService } from './lib-services/services/toggle-menu/toggle-me
 import { SignupComponent } from './signup/signup.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BasicAuthInterceptor } from './lib-services/helpers/auth.interceptor';
+import { ErrorInterceptor } from './lib-services/helpers/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { BasicAuthInterceptor } from './lib-services/helpers/auth.interceptor';
     DragulaService,
     ToggleMenuService,
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ]
 })
 export class LibraryModule { }
