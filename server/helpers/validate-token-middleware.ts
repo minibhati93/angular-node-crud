@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
+import { jwtConfig } from '../config/global';
 
 export class ValidateTokenHandler {
   public validateToken = (req: Request, res: Response, next: NextFunction) => {
@@ -8,12 +9,12 @@ export class ValidateTokenHandler {
     if (authorizationHeaader) {
       const token = (req.headers.authorization as string).split(' ')[1]; // Bearer <token>
       const options = {
-        expiresIn: '2d',
-        issuer: 'mylibrary.org'
+        expiresIn: jwtConfig.tokenLife,
+        issuer: jwtConfig.issuer
       };
       try {
         // verify makes sure that the token hasn't expired and has been issued by us
-        const secret = process.env.JWT_SECRET || 'abc';
+        const secret = process.env.JWT_SECRET || '';
         result = jwt.verify(token, secret, options);
 
         // Let's pass back the decoded token to the request object

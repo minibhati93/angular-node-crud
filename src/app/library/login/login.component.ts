@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
       if (response.token) {
         if (!this.authService.getToken()) {
           this.authService.setToken(response.token);
+          this.authService.updateUserValue(value.username);
         }
         this.router.navigateByUrl('/');
       }

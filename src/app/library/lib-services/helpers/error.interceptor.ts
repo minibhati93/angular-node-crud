@@ -24,6 +24,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         } else {
           // server-side error
           if (error.status === 401) {
+            this.authenticationService.removeToken();
             this.router.navigateByUrl('/login');
           }
         }

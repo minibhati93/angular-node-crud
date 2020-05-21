@@ -1,4 +1,5 @@
 import { User } from '../../models/user';
+import { jwtConfig } from '../../config/global';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 
@@ -11,8 +12,8 @@ export class AuthController {
 
          // Create a token
          const payload = { user: $u.username };
-         const options = { expiresIn: '2d', issuer: 'mylibrary.org' };
-         const secret = process.env.JWT_SECRET || 'abc';
+         const options = { expiresIn: jwtConfig.tokenLife, issuer: jwtConfig.issuer };
+         const secret = process.env.JWT_SECRET || '';
          const token = jwt.sign(payload, secret, options);
          let response: any = {};
          response = { status: 200, user: $u.username, token };

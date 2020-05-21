@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ToggleMenuService } from '../lib-services/services/toggle-menu/toggle-menu.service';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../lib-services/services/auth.service';
@@ -14,7 +14,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   public fullMenu: boolean;
   subscription: Subscription;
-  currentUser: User;
+  isUserLoggedIn = false;
+  currentUser: string;
+  @Input() loginPage: boolean;
 
   constructor(private toggleViewService: ToggleMenuService,
               private authService: AuthService,
@@ -24,7 +26,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subscription = this.toggleViewService.getMenuViewType$.subscribe(menu => {
       this.fullMenu = menu;
     });
-    this.authService.currentUser.subscribe(currentUser => this.currentUser = currentUser);
+    if (this.authService.isAuthenticated()) {
+      this.isUserLoggedIn = true;
+      this.authService.currentUser.subscribe(data => this.currentUser = data);
+    }
   }
 
   toggleFullMenu() {
@@ -33,14 +38,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    this.authService.logout();
-    localStorage.removeItem('currentUser');
+    this.authService.removeToken();
+    this.authService.updateUserValue(null);
     this.router.navigateByUrl('/login');
   }
 
   ngOnDestroy() {
     if (this.subscription) {
-      console.log('destroying header');
       this.subscription.unsubscribe();
     }
   }
