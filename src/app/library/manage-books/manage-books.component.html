@@ -18,57 +18,63 @@
         <button type="button" (click)="viewType = 'list'" [ngClass]="{ 'activeBtn' : viewType == 'list' }" class="btn listViewBtnGroup border"><i class="fas fa-list-ul"></i></button>
       </div>
     </div>
-    <!--- Thumbail view starts  -->
-    <div *ngIf="viewType === 'thumbnail'">
-      <div *ngIf="currentState === 'all'" class="scrollableList mt-3 box-shadow rounded p-2">
-        <ul class="parentBooksList sourceBooks d-flex flex-wrap">
-          <li *ngFor="let book of filteredBooksList" class="border m-2" [ngClass]="isClicked(book._id) ?'highlightBook' : 'removeHighlight' " >
-            <span class="badge-handle">
-              <img [src]="book.thumbnailUrl ? book.thumbnailUrl : dummyImgUrl " alt="{{book.title}}" />
-            </span>
-            <span class="pl-3 titleContainer" (dblclick)="selectItemOnDblClick(book)">{{book.title}}</span>
-            <span *ngIf="isClicked(book._id)" class="fa fa-check-circle selectCheckmark"></span>
-          </li>
-        </ul>
+    <div class="d-flex" style="width: 100%;">
+      <div class="scrollableList mt-3 box-shadow rounded p-2" [style.width]="selectedBook ? '50%': '100%'">
+      <!--- Thumbail view starts  -->
+        <div *ngIf="viewType === 'thumbnail' && currentState === 'all'">
+            <ul class="parentBooksList sourceBooks d-flex flex-wrap">
+              <li *ngFor="let book of filteredBooksList" (click)="openDetailedView(book)"
+                  class="border m-2" [ngClass]="isClicked(book._id) ?'highlightBook' : 'removeHighlight' " >
+                <span class="badge-handle">
+                  <img [src]="book.thumbnailUrl ? book.thumbnailUrl : dummyImgUrl " alt="{{book.title}}" />
+                </span>
+                <span class="pl-3 titleContainer">{{book.title}}</span>
+                <span *ngIf="isClicked(book._id)" class="fa fa-check-circle selectCheckmark"></span>
+              </li>
+            </ul>
+        </div>
+        <div *ngIf="viewType === 'thumbnail' && currentState !== 'all'">
+            <ul class="parentBooksList sourceBooks d-flex flex-wrap">
+              <li *ngFor="let index of allBooks" (click)="openDetailedView(index)"
+                  class="border m-2" [ngClass]="isClicked(index.bookId._id) ?'highlightBook' : 'removeHighlight' " >
+                <span class="badge-handle">
+                  <img [src]="index.bookId.thumbnailUrl ? index.bookId.thumbnailUrl : dummyImgUrl " alt="{{index.bookId.title}}" />
+                </span>
+                <span class="pl-3 titleContainer">{{index.bookId.title}}</span>
+                <span *ngIf="isClicked(index.bookId._id)" class="fa fa-check-circle selectCheckmark"></span>
+              </li>
+            </ul>
+        </div>
+        <!--- Thumbail view ends  -->
+        <!--- List view starts  -->
+        <div *ngIf="viewType === 'list'">
+            <table class="table table-border">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Authors</th>
+                  <th>Categories</th>
+                  <th>PageCount</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let book of filteredBooksList">
+                  <td>{{ book.title }}</td>
+                  <td>{{ book.authors }}</td>
+                  <td>{{ book.categories }}</td>
+                  <td>{{ book.pageCount }}</td>
+                  <td>{{ book.status }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
       </div>
-      <div *ngIf="currentState !== 'all'" class="scrollableList mt-3 box-shadow rounded p-2">
-        <ul class="parentBooksList sourceBooks d-flex flex-wrap">
-          <li *ngFor="let index of allBooks" class="border m-2" [ngClass]="isClicked(index.bookId._id) ?'highlightBook' : 'removeHighlight' " >
-            <span class="badge-handle">
-              <img [src]="index.bookId.thumbnailUrl ? index.bookId.thumbnailUrl : dummyImgUrl " alt="{{index.bookId.title}}" />
-            </span>
-            <span class="pl-3 titleContainer" (dblclick)="selectItemOnDblClick(index.bookId)">{{index.bookId.title}}</span>
-            <span *ngIf="isClicked(index.bookId._id)" class="fa fa-check-circle selectCheckmark"></span>
-          </li>
-        </ul>
+      <!--- List view ends  -->
+      <!-- Details view starts -->
+      <div *ngIf="selectedBook" class="scrollableList mt-3 ml-2 box-shadow rounded p-2" [style.width]="selectedBook ? '50%': ''">
+        <app-detailed-view [book]="selectedBook" [state]="currentState"></app-detailed-view>
       </div>
     </div>
-    <!--- Thumbail view ends  -->
-    <!--- List view starts  -->
-    <div *ngIf="viewType === 'list'">
-      <div class="scrollableList mt-3 box-shadow rounded">
-        <table class="table table-border">
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Authors</th>
-              <th>Categories</th>
-              <th>PageCount</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let book of filteredBooksList">
-              <td>{{ book.title }}</td>
-              <td>{{ book.authors }}</td>
-              <td>{{ book.categories }}</td>
-              <td>{{ book.pageCount }}</td>
-              <td>{{ book.status }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <!--- List view ends  -->
   </section>
 </div>

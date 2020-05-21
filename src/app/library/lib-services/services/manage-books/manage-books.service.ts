@@ -40,4 +40,12 @@ export class ManageBooksService {
   getBooksByStatus(status: string) {
     return this.http.get(this.BASE_URL + '/library/' + status);
   }
+
+  updateInprogressStatus(id, state) {
+    return this.http.post(this.BASE_URL + '/library/update/progress', {id, state});
+  }
+
+  updateBookByStatus(id, status) {
+    return this.http.post(this.BASE_URL + '/library/update/status', {id, status});
+  }
 }

@@ -44,6 +44,14 @@ export class LibraryController {
   public getBooksByStatus = async (username: string, status: string ) => {
     return await BookMetrics.find({user: username, status}).populate('bookId').exec();
   }
+
+  public updateInProgressStatus = async (userId: string, bookId: any, state: number) => {
+    return await BookMetrics.findOneAndUpdate({ user: userId, bookId }, {progress: Number(state)}).exec();
+  }
+
+  public updateBookByState = async (userId: string, bookId: any, state: number) => {
+    return await BookMetrics.findOneAndUpdate({ user: userId, bookId }, {status: state, progress: 100}).exec();
+  }
 }
 
 

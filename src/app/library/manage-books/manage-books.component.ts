@@ -26,6 +26,7 @@ export class ManageBooksComponent implements OnInit {
     { id: 'title', name: 'Title' },
     { id: 'page', name: 'Pagecount' }
   ];
+  selectedBook;
 
   constructor(private booksService: BooksService,
               private manageBooksService: ManageBooksService,
@@ -87,5 +88,9 @@ export class ManageBooksComponent implements OnInit {
         console.log('in manage ', response);
       });
     }
+  }
+
+  openDetailedView(book) {
+    this.selectedBook = book;
   }
 }

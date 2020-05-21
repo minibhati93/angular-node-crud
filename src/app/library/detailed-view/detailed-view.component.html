@@ -1,0 +1,28 @@
+<div class="p-2 detailsContent">
+  <div  *ngIf="state === 'all'" >
+    <h5>{{ book.title }}</h5>
+  </div>
+  <div  *ngIf="state !== 'all'" >
+    <div class="heading-container">
+      <div>
+        <span class="heading">{{ book.bookId.title }}</span>
+        <span *ngFor="let cat of  book.bookId.categories" class="badge badge-pill badge-info ml-2">{{cat}}</span>
+      </div>
+      <span>By {{ book.bookId.authors }}</span>
+    </div>
+    <p> {{ book.bookId.shortDescription }}</p>
+
+    <div *ngIf="state === 'inprogress'" class="">
+      Progress:
+      <span *ngIf="!showInputForProgress">{{ book.progress }}</span>
+      <input *ngIf="showInputForProgress" type="text" [(ngModel)]="progressState"/>
+      <span>/100</span>
+      <button class="btn btn-outline-info btn-sm float-right" *ngIf="showInputForProgress" (click)="updateProgress(book)">Done</button>
+    </div>
+    <div *ngIf="state === 'inprogress'" class="progress">
+      <div class="progress-bar bg-progress" [style.width.%]="book.progress">{{ book.progress }}</div>
+    </div>
+    <button *ngIf="state === 'inprogress'" class="btn border" (click)="showInputForProgress = !showInputForProgress">Update Progress</button>
+    <button class="btn border" (click)="markAsDone(book.bookId._id)">Mark as Done</button>
+  </div>
+</div>

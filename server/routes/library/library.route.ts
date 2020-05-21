@@ -33,6 +33,30 @@ export class LibraryRoutes {
       }).catch((err:any) => next() );
     });
 
+    this.router.post('/update/progress', (req: Request, res: Response, next: NextFunction) => {
+      const userId = req.cookies.user;
+      const {id, state} = req.body;
+      libController.updateInProgressStatus(userId, id, state).then(data => {
+        if(data){
+          res.status(200).json({response: 'success'});
+        } else {
+          next();
+        }
+      }).catch((err:any) => next() );
+    });
+
+    this.router.post('/update/status', (req: Request, res: Response, next: NextFunction) => {
+      const userId = req.cookies.user;
+      const {id, status} = req.body;
+      libController.updateBookByState(userId, id, status).then(data => {
+        if(data){
+          res.status(200).json({response: 'success'});
+        } else {
+          next();
+        }
+      }).catch((err:any) => next() );
+    });
+
     return this.router;
   }
 }

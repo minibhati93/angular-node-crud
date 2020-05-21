@@ -20,6 +20,7 @@ import { SignupComponent } from './signup/signup.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BasicAuthInterceptor } from './lib-services/helpers/auth.interceptor';
 import { ErrorInterceptor } from './lib-services/helpers/error.interceptor';
+import { DetailedViewComponent } from './detailed-view/detailed-view.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { ErrorInterceptor } from './lib-services/helpers/error.interceptor';
     LoginComponent,
     ErrorComponent,
     AsideComponent,
-    SearchComponent, ManageBooksComponent, ChartsComponent, SignupComponent],
+    SearchComponent, ManageBooksComponent, ChartsComponent, SignupComponent, DetailedViewComponent],
   imports: [
     CommonModule,
     LibraryRoutingModule,
