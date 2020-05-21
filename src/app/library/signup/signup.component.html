@@ -1,0 +1,38 @@
+<main>
+  <header>
+    <app-lib-header></app-lib-header>
+  </header>
+  <section class="container-fluid p-0">
+    <div class="box-shadow m-5 p-3 rounded-lg">
+      <form [formGroup]="signUpForm">
+        <div class="form-group row m-3">
+          <label for="username" class="col-sm-2 col-form-label">Username: </label>
+          <input type="text" class="form-control col-sm-10" formControlName="username">
+        </div>
+        <div class="form-group row m-3">
+          <label for="email" class="col-sm-2 col-form-label">Email: </label>
+          <input type="text" class="form-control col-sm-10" formControlName="email">
+        </div>
+        <div class="form-group row m-3">
+          <label for="password" class="col-sm-2 col-form-label">Password: </label>
+          <input type="password" class="form-control col-sm-10" formControlName="password">
+        </div>
+        <div class="form-group row m-3">
+          <label for="firstName" class="col-sm-2 col-form-label">First Name: </label>
+          <input type="text" class="form-control col-sm-10" formControlName="firstName">
+        </div>
+        <div class="form-group row m-3">
+          <label for="lastName" class="col-sm-2 col-form-label">Last Name: </label>
+          <input type="text" class="form-control col-sm-10" formControlName="lastName">
+        </div>
+        <div class="form-group row m-3">
+          <label for="role" class="col-sm-2 col-form-label">Role: </label>
+          <input type="text" class="form-control col-sm-10" formControlName="role">
+        </div>
+        <div class="ml-3">
+          <button class="btn btn-primary m-3" (click)="signUp(signUpForm.value)">Register</button>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>

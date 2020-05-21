@@ -9,12 +9,14 @@ export class BasicAuthInterceptor implements HttpInterceptor {
   constructor() { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler) {
-
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (currentUser && currentUser.authdata) {
+    const login = /login/gi;
+    const signup = /signup/gi;
+    const token = localStorage.getItem('jwt');
+    if (token && (request.url.search(login) === -1 && request.url.search(signup) === -1)) {
       request = request.clone({
         setHeaders: {
-            Authorization: `Basic ${currentUser.authdata}`
+          'Content-Type':  'application/json',
+          Authorization: `Bearer ${token}`
         }
       });
     }

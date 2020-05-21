@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { AuthService } from '../lib-services/services/auth.service';
 import { User } from 'src/app/shared/models/user.model';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -16,10 +17,6 @@ export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private authService: AuthService,
               private router: Router) {
-  // redirect to home if already logged in
-  if (this.authService.currentUserValue) {
-    this.router.navigateByUrl('/');
-  }
   }
 
   ngOnInit() {
@@ -30,11 +27,19 @@ export class LoginComponent implements OnInit {
   }
 
   login(value) {
-    this.authService.login(value).subscribe((user: User) => {
-      if (user) {
+    this.authService.login(value).subscribe((response: any) => {
+      if (response.token) {
+        if (!this.authService.getToken()) {
+          this.authService.setToken(response.token);
+          this.authService.updateUserValue(value.username);
+        }
         this.router.navigateByUrl('/');
       }
-    });
+    }, err => this.catchError(err));
+  }
+
+  catchError(err: HttpErrorResponse) {
+    console.log(err);
   }
 
 }

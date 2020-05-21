@@ -1,26 +1,34 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
+import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, retry } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ErrorInterceptor implements HttpInterceptor {
 
-  constructor(private authenticationService: AuthService) {}
+  constructor(private authenticationService: AuthService,
+              private router: Router) {}
 
-  intercept(request: HttpRequest<any>, next: HttpHandler) {
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>  {
 
-    return next.handle(request).pipe(catchError(err => {
-      if (err.status === 401) {
-          // auto logout if 401 response returned from api
-          this.authenticationService.logout();
-          location.reload(true);
-      }
-      const error = err.error.message || err.statusText;
-      return throwError(error);
+    return next.handle(request).pipe(
+      catchError((error: HttpErrorResponse) => {
+        let errorMessage = '';
+        if (error.error instanceof ErrorEvent) {
+          // client-side error
+          errorMessage = `Error: ${error.error.message}`;
+        } else {
+          // server-side error
+          if (error.status === 401) {
+            this.authenticationService.removeToken();
+            this.router.navigateByUrl('/login');
+          }
+        }
+        return throwError(error);
     }));
   }
 }

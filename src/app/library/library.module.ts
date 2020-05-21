@@ -16,6 +16,10 @@ import { ManageBooksComponent } from './manage-books/manage-books.component';
 import { ChartsComponent } from './charts/charts.component';
 import { DragulaModule, DragulaService } from 'ng2-dragula';
 import { ToggleMenuService } from './lib-services/services/toggle-menu/toggle-menu.service';
+import { SignupComponent } from './signup/signup.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BasicAuthInterceptor } from './lib-services/helpers/auth.interceptor';
+import { ErrorInterceptor } from './lib-services/helpers/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,7 @@ import { ToggleMenuService } from './lib-services/services/toggle-menu/toggle-me
     LoginComponent,
     ErrorComponent,
     AsideComponent,
-    SearchComponent, ManageBooksComponent, ChartsComponent],
+    SearchComponent, ManageBooksComponent, ChartsComponent, SignupComponent],
   imports: [
     CommonModule,
     LibraryRoutingModule,
@@ -37,7 +41,9 @@ import { ToggleMenuService } from './lib-services/services/toggle-menu/toggle-me
   providers: [
     AuthService,
     DragulaService,
-    ToggleMenuService
+    ToggleMenuService,
+    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ]
 })
 export class LibraryModule { }
