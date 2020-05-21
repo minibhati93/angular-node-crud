@@ -16,10 +16,6 @@ export class SignupComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private authService: AuthService,
               private router: Router) {
-  // redirect to home if already logged in
-  if (this.authService.currentUserValue) {
-    this.router.navigateByUrl('/');
-  }
   }
 
   ngOnInit() {
